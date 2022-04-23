@@ -1,7 +1,8 @@
 import Component, { html, css } from '../class/Component.js';
 import AppButton from '../components/app-button.js';
 import $ from '../class/DOM.js';
-import locator from '../script/locator.js';
+// import locator from '../script/locator.js';
+import api, { upload } from "../script/api.js";
 
 const attributes = {};
 const properties = {};
@@ -31,27 +32,27 @@ const style = css`
     border-radius: 10px;
     cursor: pointer;
   }
-  
+
   #upload-container img {
     width: 40%;
     margin-bottom: 20px;
     user-select: none;
   }
-  
+
   #upload-container label {
     font-weight: bold;
   }
-  
+
   #upload-container label:hover {
     cursor: pointer;
     text-decoration: underline;
   }
-  
+
   #upload-container div {
     position: relative;
     z-index: 10;
   }
-  
+
   #upload-container input[type=file] {
     width: 0.1px;
     height: 0.1px;
@@ -59,12 +60,12 @@ const style = css`
     position: absolute;
     z-index: -10;
   }
-  
+
   #upload-container label.focus {
     outline: 1px solid #0078d7;
     outline: -webkit-focus-ring-color auto 5px;
   }
-  
+
   #upload-container.dragover {
     background-color: #fafafa;
     outline-offset: -17px;
@@ -92,7 +93,7 @@ const style = css`
     text-align: center;
     margin-top: 50px;
   }
-  
+
   .upload-block {
     margin: 20px 50px;
   }
@@ -132,7 +133,7 @@ const style = css`
     border-radius: 3px;
     padding: 10px;
     width: 400px;
-    
+
   }
 
   slot {
@@ -198,7 +199,17 @@ export default class CreateAuc extends Component {
     });
 
     this.setupDragNDrop(node);
-    
+
+    $("#fileInput", node).addEventListener('change', async (e) => {
+      console.log(e);
+      /** @type {HTMLInputElement} */
+      const inp = e.target;
+      // debugger;
+      let photo = inp.files[0];
+      const r = await upload({ photo });
+      console.log(r);
+    });
+
     return this;
   }
 
@@ -209,12 +220,12 @@ export default class CreateAuc extends Component {
     let i = 0;
     for (const file of files) {
       const fileName = `file${i++}`;
-      
+
       reader[i] = new FileReader();
       reader[i].readAsDataURL(file);
-      
+
       images.innerHTML += `<img id=${fileName} height="100" src="" style="padding: 20px;"/>`;
-      
+
       reader[i].onload = (e) => {
         root.getElementById(fileName).src = e.target.result;
       };
@@ -256,7 +267,7 @@ export default class CreateAuc extends Component {
       e.preventDefault();
       return false;
     });
-  
+
     dropZone.addEventListener('dragover', (e) => {
       e.preventDefault();
       dropZone.classList.add('dragover');
@@ -266,7 +277,7 @@ export default class CreateAuc extends Component {
       e.preventDefault();
       dropZone.classList.add('dragover');
     });
-  
+
     dropZone.addEventListener('dragleave', (e) => {
       e.preventDefault();
       dropZone.classList.remove('dragover');

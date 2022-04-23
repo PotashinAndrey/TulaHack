@@ -58,7 +58,7 @@ main();
       .route({
         name: 'lotItem',
         node: 'lot-auc',
-        default: false,
+        // default: true,
       });
 
     return router;
