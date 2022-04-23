@@ -155,7 +155,7 @@ export default class CreateAuc extends Component {
       <h1 class="header">Создание лота</h1>
       <div class="name">
         <h2>Название лота:</h2>
-        <input placeholder="Ведите название..." id="name" class="input" type="text" size="40" />
+        <input placeholder="Ведите название..." id="nameId" class="input" type="text" size="40" />
       </div>
       <div id="upload-block-id" class="upload-block">
         <div id="upload-container">
@@ -223,11 +223,14 @@ export default class CreateAuc extends Component {
         image: imgId
       });
 
-      // if (r) {
-        // const modal = document.getElementById("modal-auction");
-        // console.log(modal)
-        // modal.remove();
-      // }
+      const newdiv = document.createElement("div");
+      newdiv.style.marginTop = "40%";
+      newdiv.style.textAlign = "center";
+      newdiv.style.fontSize = "40px";
+      newdiv.innerText = "Аукцион открыт!";
+
+      node.innerHTML = "";
+      node.appendChild(newdiv);
     });
 
 
