@@ -1,4 +1,7 @@
-import Component, { html, css } from '../class/Component.js';
+import Component, {
+  html,
+  css
+} from '../class/Component.js';
 import AppButton from '../components/app-button.js';
 import $ from '../class/DOM.js';
 import locator from '../script/locator.js';
@@ -11,10 +14,52 @@ const data = {
   description: "Мой старый грязный носок, побывал на всех континентах мира на моей ноге, отдам раритет в добрые ноги! Цена сдельная, запах отменный.",
   // img: "../../extension/logo.png",
   src: "./imgs/sock.jpeg",
-  firstBet: 100
+  firstBet: 100,
+  end: new Date(Date.now() + 100 * 1000)
 };
 
-const style = css`
+function getRemainedTime(time) {
+  const remain = time - Date.now();
+
+  if (remain < 1000) {
+    return "00:00:00";
+  }
+
+  const formatedRemainedTime = Math.ceil(remain / 1000);
+
+  const hours = Math.floor(formatedRemainedTime / 3600);
+  const minutes = Math.floor((formatedRemainedTime % 3600) / 60);
+  const seconds = formatedRemainedTime % 60;
+
+  return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+}
+
+function timerFunc(node, data) {
+  const time = data.end;
+
+  if (!node) return;
+
+  node.getElementById("timer").innerText = `Времени до конца: ${getRemainedTime(time)}`;
+
+  if (time - Date.now() > 0) {
+    setTimeout(() => {
+      timerFunc(node, data);
+    }, 1000);
+  } else {
+    setTimeout(() => {
+      const timer  = node.getElementById("timer");
+      timer.innerText = "Аукцион закончен";
+      timer.style.fontSize = "40px";
+
+      const betBlock = node.getElementById("betBlock");
+      betBlock.style.display = "none";
+
+      node.getElementById("first-price").innerText = `Финальная ставка: ${data.firstBet} руб.`;
+    }, 10000);
+  }
+}
+
+const style = css `
   :host {
     height: calc(100vh - 40px);
     display: block;
@@ -61,6 +106,12 @@ const style = css`
     padding: 10px;
   }
 
+  #timer {
+    margin: 20px 50px;
+    font-size: 20px;
+
+  }
+
   .do-lot {
     margin: 20px 50px;
   }
@@ -76,18 +127,19 @@ const style = css`
   }`;
 
 /** Раскладка {Lot} @class @ui @component <lot-auc />
-  * description
-  */
+ * description
+ */
 export default class Lot extends Component {
-  static template = html`
+  static template = html `
     <template>
       <style>${style}</style>
       <div id="root">
         <h1 id="name">Название</h1>
         <img id="img" src="../../extension/logo.png" />
         <p id="description">Описание</p>
+        <div id="timer"></div>
         <div id="first-price"></div>
-        <div class="do-lot">
+        <div id="betBlock" class="do-lot">
           <input id="bet" placeholder="Ваша ставка..." />
           <button id="betBtn">Сделать Ставку</button>
         </div>
@@ -95,9 +147,9 @@ export default class Lot extends Component {
     </template>`;
 
   /** Создание элемента в DOM (DOM доступен) / mount @lifecycle
-    * @param {ShadowRoot} node корневой узел элемента
-    * @return {PageMain} #this текущий компонент
-    */
+   * @param {ShadowRoot} node корневой узел элемента
+   * @return {PageMain} #this текущий компонент
+   */
   mount(node) {
     super.mount(node, attributes, properties);
 
@@ -107,9 +159,18 @@ export default class Lot extends Component {
     img.src = data.src;
     img.alt = data.name;
     node.getElementById("first-price").innerText = `Начальная ставка: ${data.firstBet} руб.`;
-    
+
+    node.getElementById("timer").innerText = `Времени до конца: ${getRemainedTime(data.end)}`;
+
+    setTimeout(() => {
+      timerFunc(node, data);
+    }, 1000);
+
     return this;
   }
 }
 
-Component.init(Lot, 'lot-auc', { attributes, properties });
+Component.init(Lot, 'lot-auc', {
+  attributes,
+  properties
+});

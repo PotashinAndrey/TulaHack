@@ -53,12 +53,12 @@ main();
       .route({
         name: 'main',
         node: 'create-auc',
-        default: true,
+        default: false,
       })
       .route({
         name: 'lotItem',
         node: 'lot-auc',
-        default: false,
+        default: true,
       });
 
     return router;
