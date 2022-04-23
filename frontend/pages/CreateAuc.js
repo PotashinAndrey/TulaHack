@@ -155,14 +155,14 @@ export default class CreateAuc extends Component {
       <h1 class="header">Создание лота</h1>
       <div class="name">
         <h2>Название лота:</h2>
-        <input placeholder="Ведите название..." class="nameInput" type="text" size="40" />
+        <input placeholder="Ведите название..." class="nameInput" id="nameId" type="text" size="40" />
       </div>
       <div id="upload-block-id" class="upload-block">
         <div id="upload-container">
           <img id="upload-image" src="icons/upload.svg">
           <div>
             <input id="fileInput" type="file" multiple>
-            <label for="fileInput">Выберите файл</label>
+            <label>Выберите файл</label>
             <span>или перетащите его сюда</span>
           </div>
         </div>
@@ -176,9 +176,10 @@ export default class CreateAuc extends Component {
 
       <div class="price">
         <h2>Стартовая цена:</h2>
-        <input class="nameInput" placeholder="Стартовая цена лота..." size="40" />
+        <input id="price" class="nameInput" placeholder="Стартовая цена лота..." size="40" />
       </div>
-      <button class="createBtn">Создать</button>
+
+      <button id="create" class="createBtn">Создать</button>
       <slot></slot>
     </template>`;
 
@@ -208,6 +209,24 @@ export default class CreateAuc extends Component {
       let photo = inp.files[0];
       const r = await upload({ photo });
       console.log(r);
+    });
+
+    node.getElementById("create").addEventListener("click", () => {
+      //send data
+      console.log("adad")
+
+      fetch("https://localhost:7443/create", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({
+          name: node.getElementById("nameId").value,
+          description: node.getElementById("description").value,
+          price: node.getElementById("price").value,
+          file: node.getElementById("fileInput").files["0"].name
+        })
+      });
     });
 
     return this;

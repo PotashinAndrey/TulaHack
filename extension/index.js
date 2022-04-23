@@ -18,7 +18,7 @@ const openAuc = () => {
     modal.style.background = "white";
     modal.style.borderRadius = "10px";
     modal.style.marginLeft = "50%";
-    modal.style.marginTop = "35%";
+    modal.style.marginTop = "45%";
     modal.style.transform = "translate(-50%, -50%)";
     modal.style.position = "relative";
 
