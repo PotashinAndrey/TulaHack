@@ -1,0 +1,15 @@
+{
+    "manifest_version": 3,
+    "name": "Reverse auction",
+    "version": "1.0",
+    "description": "Ссылка «Входящие» и «Написать письмо» снова открываются в той же вкладке!",
+    "icons": {
+        "128": "logo.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [ "<all_urls>" ],
+            "js": [ "index.js" ]
+        }
+    ]
+ }
