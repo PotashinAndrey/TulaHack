@@ -9,7 +9,8 @@ const ROOT = config.storage;
   */
 export default class Images {
   static upload(params) {
-
+    console.log("UPLOAD", params);
+    return {};
   }
 
   static async add(params) {
@@ -18,8 +19,10 @@ export default class Images {
     // return
   }
 
-  static async getAll(params) {
+  static async get(params) {
     return new Promise((resolve, reject) => {
+      console.log('PARAMS', params);
+
       const { advert } = params; // ID объявления
       const db = new DB();
       const client = db.getClient();
@@ -35,6 +38,6 @@ export default class Images {
     });
     // сходить в БД, взять ID картинок по объявлению
     // создать урлы картинок
-    // return  
+    // return
   }
 }

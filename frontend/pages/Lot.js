@@ -2,6 +2,7 @@ import Component, { html, css } from '../class/Component.js';
 import AppButton from '../components/app-button.js';
 import $ from '../class/DOM.js';
 import locator from '../script/locator.js';
+import api from "../script/api.js";
 
 const attributes = {};
 const properties = {};
@@ -149,13 +150,14 @@ export default class Lot extends Component {
    */
   async mount(node) {
     super.mount(node, attributes, properties);
-    let response = await fetch('/api/getImages', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      }
-    });
-    let result = await response.json();
+    // let response = await fetch('/api/getImages', {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json;charset=utf-8'
+    //   }
+    // });
+    // let result = await response.json();
+    let result = await api('images.get', {test: 1, test2: "string"});
     alert(result.message);
 
     node.getElementById("name").innerText = data.name;
@@ -179,3 +181,4 @@ Component.init(Lot, 'lot-auc', {
   attributes,
   properties
 });
+

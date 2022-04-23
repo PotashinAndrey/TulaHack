@@ -30,7 +30,10 @@ export default async function api(method, data = {}, timeout = 5000) {
     let r = await fetch('/api/' + method , {
       method: "POST",
       body: JSON.stringify(data),
-      signal: ctrl.signal
+      signal: ctrl.signal,
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      }
     });
     console.log('HTTP response code:', r.status);
     return await r.json();

@@ -6,7 +6,8 @@ import multer from '@koa/multer';
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
-import uuid from 'uuid';
+import { v4 } from 'uuid';
+import Images from './controller/Images.js';
 // import fetch from 'node-fetch';
 
 /**  */
@@ -48,7 +49,10 @@ import uuid from 'uuid';
         },
         filename: function (req, file, cb) {
           console.log('FILE', file);
-          cb(null, uuid.v4() + path.extname(file.originalname));
+          const uuid = v4();
+          // дергать апи
+          Images.upload({ id: uuid });
+          cb(null, uuid + path.extname(file.originalname));
         }
       })
 
@@ -66,8 +70,9 @@ import uuid from 'uuid';
         console.log('ctx.request.files', ctx.request.files);
         console.log('ctx.files', ctx.files);
         console.log('ctx.request.body', ctx.request.body);
-        // дергать апи
-        ctx.body = {"result": "ok"};
+
+        const uuid = ctx.files[0].filename.split('.')[0];
+        ctx.body = {"result": "ok", id: uuid};
       });
 
       this.#uploader = uploader;
@@ -83,9 +88,17 @@ import uuid from 'uuid';
         // the parsed body will store in ctx.request.body
         // if nothing was parsed, body will be an empty object {}
         // ctx.body = ctx.request.body;
-        console.log(ctx.request.body);
+        // console.log(ctx.request.body);
         // api call
-        console.log(ctx.request.path);
+        const [group, method] = ctx.request.path.slice(1).split('.');
+        try {
+          // console.log('CALL', group, method, methods[group]?.[method]);
+          const result = await methods[group]?.[method]?.(ctx.request.body);
+          ctx.body = result;
+        } catch (e) {
+          ctx.body = e;
+          ctx.status = 406; // !
+        }
       });
 
       this.#methods = api;
