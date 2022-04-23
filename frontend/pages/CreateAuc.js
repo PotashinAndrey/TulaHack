@@ -211,22 +211,16 @@ export default class CreateAuc extends Component {
       console.log(r);
     });
 
-    node.getElementById("create").addEventListener("click", () => {
+    node.getElementById("create").addEventListener("click", async () => {
       //send data
-      console.log("adad")
-
-      fetch("https://localhost:7443/create", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({
-          name: node.getElementById("nameId").value,
-          description: node.getElementById("description").value,
-          price: node.getElementById("price").value,
-          file: node.getElementById("fileInput").files["0"].name
-        })
+      const r = await api("auction.create", {
+        name: node.getElementById("nameId").value,
+        description: node.getElementById("description").value,
+        price: node.getElementById("price").value,
+        file: node.getElementById("fileInput").files["0"].name
       });
+
+      console.log(r);
     });
 
     return this;
