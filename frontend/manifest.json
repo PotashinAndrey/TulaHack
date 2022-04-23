@@ -1,0 +1,18 @@
+{
+    "lang": "ru-RU",
+    "name": "Avito | lambda 2",
+    "short_name": "Avito",
+    "description": "lambda 2",
+    "start_url": "/",
+    "background_color": "white",
+    "theme_color": "white",
+    "orientation": "any",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "512x512"
+        }
+    ]
+  }
+  
