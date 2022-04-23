@@ -1,7 +1,4 @@
-import Component, {
-  html,
-  css
-} from '../class/Component.js';
+import Component, { html, css } from '../class/Component.js';
 import AppButton from '../components/app-button.js';
 import $ from '../class/DOM.js';
 import locator from '../script/locator.js';
@@ -59,7 +56,7 @@ function timerFunc(node, data) {
   }
 }
 
-const style = css `
+const style = css`
   :host {
     height: calc(100vh - 40px);
     display: block;
@@ -130,7 +127,7 @@ const style = css `
  * description
  */
 export default class Lot extends Component {
-  static template = html `
+  static template = html`
     <template>
       <style>${style}</style>
       <div id="root">

@@ -10,16 +10,13 @@ const style = css`
   :host {
     height: calc(100vh - 40px);
     width: 100%;
-    display: flex;
-    position: relative;
-    align-items: center;
-    flex-direction: column;
   }
   #root {
     height: 100vh;
     font-family: var(--font);
   }
   #upload-container {
+    margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,9 +25,10 @@ const style = css`
     height: 400px;
     outline: 2px dashed #5d5d5d;
     outline-offset: -12px;
-    background-color: #e0f2f7;
+    background-color: rgba(199,34,182, 0.05);
     font-family: 'Segoe UI';
     color: #1f3c44;
+    border-radius: 10px;
   }
   
   #upload-container img {
@@ -73,6 +71,69 @@ const style = css`
   #submitBtn {
     margin-top: 20px;
   }
+
+  .name {
+    margin: 30px 50px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .nameInput {
+    outline: none;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+  }
+
+  .header {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .upload-block {
+    margin: 20px 50px;
+  }
+
+  .createBtn {
+    background: #c722b6;
+    border: none;
+    width: 350px;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    margin-left: 50%;
+    margin-bottom: 40px;
+    transform: translate(-50%, 0);
+  }
+
+  .desc {
+    margin: 0px 50px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .price {
+    margin: 0px 50px;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  #description {
+    outline: none;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+    width: 400px;
+    
+  }
+
   slot {
     display: block;
     position: relative;
@@ -89,21 +150,33 @@ export default class CreateAuc extends Component {
   static template = html`
     <template>
       <style>${style}</style>
-      <h1>Название лота:</h1>
-      <input type="text" size="40">
-      <h1>Загрузите изображения товара:</h1>
-      <div id="upload-container">
-        <img id="upload-image" src="icons/upload.svg">
-        <div>
-          <input id="fileInput" type="file" multiple>
-          <label for="fileInput">Выберите файл</label>
-          <span>или перетащите его сюда</span>
+      <h1 class="header">Создание лота</h1>
+      <div class="name">
+        <h2>Название лота:</h2>
+        <input placeholder="Ведите название..." class="nameInput" type="text" size="40" />
+      </div>
+      <div id="upload-block-id" class="upload-block">
+        <div id="upload-container">
+          <img id="upload-image" src="icons/upload.svg">
+          <div>
+            <input id="fileInput" type="file" multiple>
+            <label for="fileInput">Выберите файл</label>
+            <span>или перетащите его сюда</span>
+          </div>
         </div>
       </div>
       <div id="previewImages"></div>
-      <h1>Введите стартовую цену торговли:</h1>
-      <input type="text">
-      <app-button primary wide id="submitBtn">Создать</app-button>
+
+      <div class="desc">
+        <h2>Описание лота:</h2>
+        <input  id="description" placeholder="Описание вашего лота..." />
+      </div>
+
+      <div class="price">
+        <h2>Стартовая цена:</h2>
+        <input class="nameInput" placeholder="Стартовая цена лота..." size="40" />
+      </div>
+      <button class="createBtn">Создать</button>
       <slot></slot>
     </template>`;
 
@@ -113,6 +186,10 @@ export default class CreateAuc extends Component {
     */
   mount(node) {
     super.mount(node, attributes, properties);
+
+    node.getElementById("upload-block-id").addEventListener("click", (e) => {
+      node.getElementById('fileInput').click();
+    });;
 
     node.getElementById('fileInput').addEventListener('change', (e) => {
       const files = e.currentTarget.files;
