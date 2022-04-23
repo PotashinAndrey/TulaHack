@@ -1,14 +1,15 @@
-import Application from './frontend/server/Application.js';
+import Application from './backend/Application.js';
+import methods     from './backend/api.js';
+import config      from './config.js';
 
-const config = {
-  "host": "localhost",
-  "port": 7777,
-  "https": 7443,
-  "serve": "./frontend/",
-  "ssl": "./ssl/",
-  "cert": "localhost.crt",
-  "key": "localhost.key"
-};
+main();
 
-const application = new Application(config);
-application.launch();
+/** */
+  async function main() {
+    const application = new Application(config)
+      .static()
+      .methods(methods);
+
+    application.launch();
+  }
+
