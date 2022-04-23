@@ -9,8 +9,11 @@ const properties = {};
 const style = css`
   :host {
     height: calc(100vh - 40px);
-    display: block;
+    width: 100%;
+    display: flex;
     position: relative;
+    align-items: center;
+    flex-direction: column;
   }
   #root {
     height: 100vh;
@@ -67,6 +70,9 @@ const style = css`
     background-color: #fafafa;
     outline-offset: -17px;
   }
+  #submitBtn {
+    margin-top: 20px;
+  }
   slot {
     display: block;
     position: relative;
@@ -83,24 +89,22 @@ export default class CreateAuc extends Component {
   static template = html`
     <template>
       <style>${style}</style>
-      <div id="root">
-        <h1>Название лота:</h1>
-        <input type="text" size="40">
-        <h1>Загрузите изображения товара:</h1>
-        <div id="upload-container">
-          <img id="upload-image" src="icons/upload.svg">
-          <div>
-            <input id="fileInput" type="file" multiple>
-            <label for="fileInput">Выберите файл</label>
-            <span>или перетащите его сюда</span>
-          </div>
+      <h1>Название лота:</h1>
+      <input type="text" size="40">
+      <h1>Загрузите изображения товара:</h1>
+      <div id="upload-container">
+        <img id="upload-image" src="icons/upload.svg">
+        <div>
+          <input id="fileInput" type="file" multiple>
+          <label for="fileInput">Выберите файл</label>
+          <span>или перетащите его сюда</span>
         </div>
-        <div id="previewImages"></div>
-        <h1>Введите стартовую цену торговли:</h1>
-        <input type="text">
-        <app-button primary wide id="submitBtn">Создать</app-button>
-        <slot></slot>
       </div>
+      <div id="previewImages"></div>
+      <h1>Введите стартовую цену торговли:</h1>
+      <input type="text">
+      <app-button primary wide id="submitBtn">Создать</app-button>
+      <slot></slot>
     </template>`;
 
   /** Создание элемента в DOM (DOM доступен) / mount @lifecycle
