@@ -147,8 +147,16 @@ export default class Lot extends Component {
    * @param {ShadowRoot} node корневой узел элемента
    * @return {PageMain} #this текущий компонент
    */
-  mount(node) {
+  async mount(node) {
     super.mount(node, attributes, properties);
+    let response = await fetch('/api/getImages', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      }
+    });
+    let result = await response.json();
+    alert(result.message);
 
     node.getElementById("name").innerText = data.name;
     node.getElementById("description").innerText = data.description;

@@ -1,6 +1,5 @@
 import PG from 'pg';
 const Client = PG.Client;
-console.log(Client)
 
 const client = new Client({
     host: 'localhost',
