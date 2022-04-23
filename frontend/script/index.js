@@ -3,6 +3,7 @@ import Channel from '../class/Browser.js';
 import Router from '../class/Router.js';
 
 import CreateAuc from "../pages/CreateAuc.js";
+import Lot from "../pages/Lot.js";
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('/service-worker.js')
@@ -50,39 +51,14 @@ main();
     const root = document.body;
     const router = Router.hash(root)
       .route({
-        path: 'login',
-        node: 'page-login',
-      })
-      .route({
         name: 'main',
         node: 'create-auc',
         default: true,
-        nesting: new Router()
-          .route({
-            path: 'camera',
-            node: 'page-camera',
-            default: true
-          })
-          .route({
-            path: 'donate',
-            node: 'page-donate',
-          })
-          .route({
-            path: 'success',
-            node: 'page-success'
-          })
-          .route({
-            path: 'stickers',
-            node: 'page-stickers'
-          })
-          .route({
-            path: 'friends',
-            node: 'page-friends'
-          })
-          .route({
-            path: 'profile',
-            node: 'page-profile'
-          })
+      })
+      .route({
+        name: 'lotItem',
+        node: 'lot-auc',
+        default: false,
       });
 
     return router;

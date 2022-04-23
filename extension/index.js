@@ -10,7 +10,7 @@ const openAuc = () => {
     wrapper.style.position = "fixed";
     wrapper.style.width = "100%";
     wrapper.style.height = "100%";
-    wrapper.style.zIndex = "100";
+    wrapper.style.zIndex = "32000";
     wrapper.style.background = "rgba(0, 0, 0, 0.5)"
 
     modal.style.width = "800px";
@@ -24,7 +24,7 @@ const openAuc = () => {
 
     closeBtn.style.position = "absolute";
     closeBtn.style.top = "0";
-    closeBtn.style.right = "-90px";
+    closeBtn.style.right = "-40px";
     closeBtn.style.width = "30px";
     closeBtn.style.height = "30px";
     closeBtn.style.background = "white";
@@ -38,17 +38,21 @@ const openAuc = () => {
 
     closeBtn.addEventListener("click", () => {
         document.getElementById("modal-auction").remove();
+        document.body.style.overflow = "auto";
     });
 
     const iframe = document.createElement("iframe");
     iframe.src = iframeSrc;
     iframe.style.width = "100%";
     iframe.style.height = "100%";
+    iframe.style.zIndex = "32000"
 
     modal.appendChild(iframe);
     modal.appendChild(closeBtn);
 
     wrapper.appendChild(modal);
+
+    document.body.style.overflow = "hidden";
     document.body.appendChild(wrapper);
 };
 
