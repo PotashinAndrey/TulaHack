@@ -89,8 +89,7 @@ ALTER TABLE public.bids OWNER TO postgres;
 --
 
 CREATE TABLE public.images (
-    id integer NOT NULL,
-    name text NOT NULL
+    id integer NOT NULL
 );
 
 
@@ -131,20 +130,6 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
--- Name: ads id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.ads ALTER COLUMN id SET DEFAULT nextval('public.adds_id_seq'::regclass);
-
-
---
--- Name: images id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.images ALTER COLUMN id SET DEFAULT nextval('public.images_id_seq'::regclass);
-
-
---
 -- Data for Name: ad_images; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -175,10 +160,11 @@ COPY public.bids (ad, author, amount) FROM stdin;
 -- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.images (id, name) FROM stdin;
-1	img1
-2	sock
-3	8b11ed07-4300-4b69-906e-7a170cde9b33
+COPY public.images (id) FROM stdin;
+1
+2
+3
+4
 \.
 
 
@@ -204,7 +190,7 @@ SELECT pg_catalog.setval('public.adds_id_seq', 1, true);
 -- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.images_id_seq', 3, true);
+SELECT pg_catalog.setval('public.images_id_seq', 4, true);
 
 
 --

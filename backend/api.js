@@ -1,5 +1,6 @@
 import Auction from './controller/Auction.js';
 import Images from './controller/Images.js';
+import Lots from './controller/Lots.js';
 
 const images = {
   get: Images.get,
@@ -10,7 +11,12 @@ const auction = {
   create: Auction.create
 };
 
+const lots = {
+  create: Lots.create
+};
+
 export default {
   images,
-  auction
+  auction,
+  lots
 };

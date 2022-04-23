@@ -23,9 +23,16 @@ export default class Images {
   }
 
   static async add(params) {
-    const { advert, image } = params; // ID объявления, ID картинки
-    // сходить в БД, привзять ID картинки к объявлению
-    // return
+    const { ad, image } = params; // ID объявления, ID картинки
+    const db = new DB();
+    const client = db.getClient();
+    client.query('INSERT INTO ad_images (ad, image) values ($1, $2)', [ad, image], (error, result) => {
+        if (!error) {
+          console.log(result?.rows);
+        } else {
+          console.log('error', error);
+        }
+    });
   }
 
   static async get(params) {
