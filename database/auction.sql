@@ -43,8 +43,7 @@ CREATE TABLE public.ads (
     description text,
     price numeric DEFAULT 0,
     opened_date bigint NOT NULL,
-    duration bigint,
-    opened boolean DEFAULT true NOT NULL
+    opened boolean DEFAULT true
 );
 
 
@@ -158,8 +157,8 @@ COPY public.ad_images (ad, image) FROM stdin;
 -- Data for Name: ads; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.ads (id, author, name, description, price, opened_date, duration, opened) FROM stdin;
-1	1	Грязный носок	Побывал везде	1337.88	1650741391144	36000000	t
+COPY public.ads (id, author, name, description, price, opened_date, opened) FROM stdin;
+1	1	Грязный носок	Побывал везде	1337.88	1650741391144	t
 \.
 
 
@@ -179,6 +178,7 @@ COPY public.bids (ad, author, amount) FROM stdin;
 COPY public.images (id, name) FROM stdin;
 1	img1
 2	sock
+3	8b11ed07-4300-4b69-906e-7a170cde9b33
 \.
 
 
@@ -204,7 +204,7 @@ SELECT pg_catalog.setval('public.adds_id_seq', 1, true);
 -- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.images_id_seq', 2, true);
+SELECT pg_catalog.setval('public.images_id_seq', 3, true);
 
 
 --
