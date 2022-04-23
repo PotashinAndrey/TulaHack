@@ -2,15 +2,7 @@ import locator from './locator.js';
 import Channel from '../class/Browser.js';
 import Router from '../class/Router.js';
 
-import PageRegistration from "../pages/page-registation.js";
-import PageLogin from "../pages/page-login.js";
-import PageMain from "../pages/page-main.js";
-import PageStickers from '../pages/page-stickers.js';
-import PageCamera from '../pages/page-camera.js';
-import PageFriends from '../pages/page-friends.js';
-import PageProfile from '../pages/page-profile.js';
-import PageDonate from '../pages/page-donate.js';
-import PageSuccess from '../pages/page-success.js';
+import CreateAuc from "../pages/CreateAuc.js";
 
 // if ('serviceWorker' in navigator) {
 //   navigator.serviceWorker.register('/service-worker.js')
@@ -60,21 +52,10 @@ main();
       .route({
         path: 'login',
         node: 'page-login',
-        // default: true
-        // callback: (element, options, route, router) => {
-        //   if (options.location.length > 1) {
-        //     const x = element.shadowRoot.querySelector('#' + options.location[1]).getBoundingClientRect().top;
-        //     window.scrollTo({ top: x - 100 });
-        //   }
-        // }
       })
-      // .route({
-      //   path: 'register',
-      //   node: 'page-registration'
-      // })
       .route({
         name: 'main',
-        node: 'page-main',
+        node: 'create-auc',
         default: true,
         nesting: new Router()
           .route({
