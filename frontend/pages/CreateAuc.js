@@ -200,15 +200,16 @@ export default class CreateAuc extends Component {
     });
 
     this.setupDragNDrop(node);
+    let imgId;
 
     $("#fileInput", node).addEventListener('change', async (e) => {
-      console.log(e);
       /** @type {HTMLInputElement} */
       const inp = e.target;
       // debugger;
       let photo = inp.files[0];
       const r = await upload({ photo });
-      console.log(r);
+
+      imgId = r.id;
     });
 
     node.getElementById("create").addEventListener("click", async () => {
@@ -217,11 +218,18 @@ export default class CreateAuc extends Component {
         name: node.getElementById("nameId").value,
         description: node.getElementById("description").value,
         price: node.getElementById("price").value,
-        file: node.getElementById("fileInput").files["0"].name
+        file: node.getElementById("fileInput").files["0"]?.name,
+        author: 1,
+        image: imgId
       });
 
-      console.log(r);
+      // if (r) {
+        // const modal = document.getElementById("modal-auction");
+        // console.log(modal)
+        // modal.remove();
+      // }
     });
+
 
     return this;
   }
