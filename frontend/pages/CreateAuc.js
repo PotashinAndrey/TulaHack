@@ -13,9 +13,6 @@ const style = css`
     position: relative;
   }
   #root {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 40px 1fr 96px;
     height: 100vh;
     font-family: var(--font);
   }
@@ -90,12 +87,15 @@ export default class CreateAuc extends Component {
         <h1>Название лота:</h1>
         <input type="text" size="40">
         <h1>Загрузите изображения товара:</h1>
-        <img id="upload-image" src="icons/upload.svg">
-        <div>
-          <input id="file-input" type="file" name="file" multiple>
-          <label for="file-input">Выберите файл</label>
-          <span>или перетащите его сюда</span>
+        <div id="upload-container">
+          <img id="upload-image" src="icons/upload.svg">
+          <div>
+            <input id="fileInput" type="file" multiple>
+            <label for="fileInput">Выберите файл</label>
+            <span>или перетащите его сюда</span>
+          </div>
         </div>
+        <div id="previewImages"></div>
         <h1>Введите стартовую цену торговли:</h1>
         <input type="text">
         <app-button primary wide id="submitBtn">Создать</app-button>
@@ -110,6 +110,28 @@ export default class CreateAuc extends Component {
   mount(node) {
     super.mount(node, attributes, properties);
 
+    node.getElementById('fileInput').addEventListener('change', (e, input) => {
+      const files = e.currentTarget.files;
+    
+      const reader = [];
+      const images = node.getElementById('previewImages');
+      let i = 0;
+      for (const file of files) {
+        const fileName = 'file' + i++;
+        
+        reader[i] = new FileReader();
+        reader[i].readAsDataURL(file);
+        
+        images.innerHTML += '<img id="'+ fileName +'" src="" />';
+        
+        ((name) => {
+            reader[i].onload = (e) => {
+                node.getElementById(name).src = e.target.result;
+            };
+        })(fileName);
+      }
+    });
+    
     return this;
   }
 }
