@@ -29,6 +29,7 @@ const style = css`
     font-family: 'Segoe UI';
     color: #1f3c44;
     border-radius: 10px;
+    cursor: pointer;
   }
   
   #upload-container img {
