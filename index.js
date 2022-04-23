@@ -8,6 +8,7 @@ main();
   async function main() {
     const application = new Application(config)
       .static()
+      .uploader()
       .methods(methods);
 
     application.launch();
