@@ -51,6 +51,7 @@ import Images from './controller/Images.js';
           console.log('FILE', file);
           const uuid = v4();
           // дергать апи
+          console.log('uuid', uuid);
           Images.upload({ id: uuid });
           cb(null, uuid + path.extname(file.originalname));
         }
