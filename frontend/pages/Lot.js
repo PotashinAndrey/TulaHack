@@ -10,7 +10,7 @@ const data = {
   name: "Грязный носок",
   description: "Мой старый грязный носок, побывал на всех континентах мира на моей ноге, отдам раритет в добрые ноги! Цена сдельная, запах отменный.",
   // img: "../../extension/logo.png",
-  img: "../imgs/sock.jpeg",
+  src: "./imgs/sock.jpeg",
   firstBet: 100
 };
 
@@ -35,6 +35,7 @@ const style = css`
 
   #img {
     margin: 20px 50px;
+    max-width: 300px;
   }
 
   #first-price {
