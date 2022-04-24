@@ -4,6 +4,27 @@ const PATH = {
     "create-bid": "create-bid.html"
 };
 
+async function api(method, data = {}, timeout = 5000) {
+    const ctrl = new AbortController() // timeout
+    setTimeout(() => ctrl.abort(), timeout);
+  
+    try {
+      let r = await fetch(HOST + 'api/' + method , {
+        method: "POST",
+        body: JSON.stringify(data),
+        signal: ctrl.signal,
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        }
+      });
+      console.log('HTTP response code:', r.status);
+      return await r.json();
+    } catch(e) {
+      console.log('Huston, we have problem...:', e);
+      return Promise.reject(e);
+    }
+  }
+
 const openAuc = (link) => {
     const wrapper = document.createElement("div");
     wrapper.id = "modal-auction";
@@ -106,7 +127,7 @@ setTimeout(() => {
     }
 }, 1000);
 
-setTimeout(() => {
+setTimeout(async () => {
     const mainBlock = document.getElementsByClassName("index-content-_KxNP")[0];
 
     const ourAucs = document.createElement("div");
@@ -133,15 +154,23 @@ setTimeout(() => {
     lotsContainer.style.justifyContent = "space-between";
     lotsContainer.style.gap = "5px";
 
+    // const lots = await api();
+
     for (let i = 0; i < 3; i++) {
         const lot = document.createElement("div");
 
         lot.style.width = "90px";
         lot.style.height = "90px";
-        lot.style.background = "white";
+        // lot.style.background = "white";
         lot.style.borderRadius = "16px";
         lot.style.alignSelf = "center";
         lot.style.cursor = "pointer";
+
+        lot.style.backgroundImage = `url("https://localhost:7443/storage/25caa162-5c47-4c0f-9c7d-6ce99ba82371.png")`
+
+        lot.addEventListener("click", () => {
+            console.log(i);
+        });
 
         lotsContainer.appendChild(lot);
     }
