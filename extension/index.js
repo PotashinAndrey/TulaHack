@@ -141,6 +141,7 @@ setTimeout(() => {
         lot.style.background = "white";
         lot.style.borderRadius = "16px";
         lot.style.alignSelf = "center";
+        lot.style.cursor = "pointer";
 
         lotsContainer.appendChild(lot);
     }
