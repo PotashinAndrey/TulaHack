@@ -125,7 +125,15 @@ export default class CreateBid extends Component {
     // const id
     let params = new URLSearchParams(document.location.search);
     let id = params.get("id");
-    console.log("LOAD AUCTION ID", id);
+    // console.log("LOAD AUCTION ID", id);
+
+    
+
+    const data = await api("action.getById", {id: id});
+    // const data = await api("action.getById", {id: "27ae6834-54d6-47f3-b764-711adeb8f894"});
+    // console.log("data", data, id, data.res);
+
+    // console.log("data", data);
 
     // ДЕРНУТЬ за победителем
     const temp = await api("auction.winner", {id});
