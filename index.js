@@ -1,4 +1,5 @@
 import Application from './backend/Application.js';
+import TelegramBot from './bot/TelegramBot.js';
 import methods     from './backend/api.js';
 import config      from './config.js';
 
@@ -12,5 +13,10 @@ main();
       .methods(methods);
 
     application.launch();
+
+    const telegramBot = new TelegramBot(config)
+      .init();
+
+    telegramBot.launch();
   }
 

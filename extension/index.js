@@ -5,22 +5,27 @@ const openAuc = () => {
     const wrapper = document.createElement("div");
     const closeBtn = document.createElement("div");
 
-    wrapper.id = "modal-auction"
+    wrapper.id = "modal-auction";
 
-    wrapper.style.position = "fixed";
-    wrapper.style.width = "100%";
-    wrapper.style.height = "100%";
-    wrapper.style.zIndex = "32000";
-    wrapper.style.background = "rgba(0, 0, 0, 0.5)"
+    Object.assign(wrapper.style, {
+        position: "fixed",
+        display: "flex",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 32767,
+        backgroundColor: "rgba(0, 0, 0, 0.5)"
+    });
 
-    modal.style.width = "800px";
-    modal.style.height = "700px";
-    modal.style.background = "white";
-    modal.style.borderRadius = "10px";
-    modal.style.marginLeft = "50%";
-    modal.style.marginTop = "45%";
-    modal.style.transform = "translate(-50%, -50%)";
-    modal.style.position = "relative";
+    Object.assign(modal.style, {
+        width: "800px",
+        height: "700px",
+        backgroundColor: "white",
+        borderRadius: "10px",
+        margin: "auto",
+        position: "relative",
+    });
 
     closeBtn.style.position = "absolute";
     closeBtn.style.top = "0";
@@ -92,7 +97,7 @@ setTimeout(() => {
         button.style.height = "66px";
 
         button.onclick = openAuc;
-        
+
         span.appendChild(button);
         itemLine.appendChild(span);
         actions.appendChild(itemLine);

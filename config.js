@@ -15,5 +15,10 @@ export default {
     port: 5432,
     password: '1234',
     database: 'TulaHack'
+  },
+
+  telegram: {
+    name: "https://t.me/TulHackBot",
+    token: "5307549521:AAHuZtS_HqImYOfJ2HED4siMuQEK2H-Kgz4"
   }
 }

@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 14.2
--- Dumped by pg_dump version 14.2
+-- Dumped from database version 12.3
+-- Dumped by pg_dump version 12.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -16,12 +16,28 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+ALTER TABLE IF EXISTS ONLY public.ad_images DROP CONSTRAINT IF EXISTS image_id_fkey;
+ALTER TABLE IF EXISTS ONLY public.bids DROP CONSTRAINT IF EXISTS bids_author_fkey;
+ALTER TABLE IF EXISTS ONLY public.bids DROP CONSTRAINT IF EXISTS bids_ad_fkey;
+ALTER TABLE IF EXISTS ONLY public.ad_images DROP CONSTRAINT IF EXISTS ad_id_fkey;
+ALTER TABLE IF EXISTS ONLY public.users DROP CONSTRAINT IF EXISTS users_pkey;
+ALTER TABLE IF EXISTS ONLY public.images DROP CONSTRAINT IF EXISTS images_pkey;
+ALTER TABLE IF EXISTS ONLY public.bids DROP CONSTRAINT IF EXISTS bids_pkey;
+ALTER TABLE IF EXISTS ONLY public.ads DROP CONSTRAINT IF EXISTS adds_pkey;
+ALTER TABLE IF EXISTS ONLY public.ad_images DROP CONSTRAINT IF EXISTS ad_images_pkey;
+DROP TABLE IF EXISTS public.users;
+DROP SEQUENCE IF EXISTS public.images_id_seq;
+DROP TABLE IF EXISTS public.images;
+DROP TABLE IF EXISTS public.bids;
+DROP SEQUENCE IF EXISTS public.adds_id_seq;
+DROP TABLE IF EXISTS public.ads;
+DROP TABLE IF EXISTS public.ad_images;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: ad_images; Type: TABLE; Schema: public; Owner: postgres
+-- Name: ad_images; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.ad_images (
@@ -30,10 +46,8 @@ CREATE TABLE public.ad_images (
 );
 
 
-ALTER TABLE public.ad_images OWNER TO postgres;
-
 --
--- Name: ads; Type: TABLE; Schema: public; Owner: postgres
+-- Name: ads; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.ads (
@@ -47,10 +61,8 @@ CREATE TABLE public.ads (
 );
 
 
-ALTER TABLE public.ads OWNER TO postgres;
-
 --
--- Name: adds_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: adds_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.adds_id_seq
@@ -62,17 +74,15 @@ CREATE SEQUENCE public.adds_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.adds_id_seq OWNER TO postgres;
-
 --
--- Name: adds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: adds_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.adds_id_seq OWNED BY public.ads.id;
 
 
 --
--- Name: bids; Type: TABLE; Schema: public; Owner: postgres
+-- Name: bids; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.bids (
@@ -82,10 +92,8 @@ CREATE TABLE public.bids (
 );
 
 
-ALTER TABLE public.bids OWNER TO postgres;
-
 --
--- Name: images; Type: TABLE; Schema: public; Owner: postgres
+-- Name: images; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.images (
@@ -93,10 +101,8 @@ CREATE TABLE public.images (
 );
 
 
-ALTER TABLE public.images OWNER TO postgres;
-
 --
--- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+-- Name: images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE public.images_id_seq
@@ -108,17 +114,15 @@ CREATE SEQUENCE public.images_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.images_id_seq OWNER TO postgres;
-
 --
--- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Name: images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.images_id_seq OWNED BY public.images.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: postgres
+-- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.users (
@@ -127,10 +131,8 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO postgres;
-
 --
--- Data for Name: ad_images; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: ad_images; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.ad_images (ad, image) FROM stdin;
@@ -139,7 +141,7 @@ COPY public.ad_images (ad, image) FROM stdin;
 
 
 --
--- Data for Name: ads; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: ads; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.ads (id, author, name, description, price, opened_date, opened) FROM stdin;
@@ -148,7 +150,7 @@ COPY public.ads (id, author, name, description, price, opened_date, opened) FROM
 
 
 --
--- Data for Name: bids; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: bids; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.bids (ad, author, amount) FROM stdin;
@@ -157,7 +159,7 @@ COPY public.bids (ad, author, amount) FROM stdin;
 
 
 --
--- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: images; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.images (id) FROM stdin;
@@ -169,7 +171,7 @@ COPY public.images (id) FROM stdin;
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY public.users (id, name) FROM stdin;
@@ -180,21 +182,21 @@ COPY public.users (id, name) FROM stdin;
 
 
 --
--- Name: adds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: adds_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.adds_id_seq', 1, true);
 
 
 --
--- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+-- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
 SELECT pg_catalog.setval('public.images_id_seq', 4, true);
 
 
 --
--- Name: ad_images ad_images_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: ad_images ad_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ad_images
@@ -202,7 +204,7 @@ ALTER TABLE ONLY public.ad_images
 
 
 --
--- Name: ads adds_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: ads adds_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ads
@@ -210,7 +212,7 @@ ALTER TABLE ONLY public.ads
 
 
 --
--- Name: bids bids_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: bids bids_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.bids
@@ -218,7 +220,7 @@ ALTER TABLE ONLY public.bids
 
 
 --
--- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: images images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.images
@@ -226,7 +228,7 @@ ALTER TABLE ONLY public.images
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.users
@@ -234,7 +236,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: ad_images ad_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: ad_images ad_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ad_images
@@ -242,7 +244,7 @@ ALTER TABLE ONLY public.ad_images
 
 
 --
--- Name: bids bids_ad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: bids bids_ad_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.bids
@@ -250,7 +252,7 @@ ALTER TABLE ONLY public.bids
 
 
 --
--- Name: bids bids_author_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: bids bids_author_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.bids
@@ -258,7 +260,7 @@ ALTER TABLE ONLY public.bids
 
 
 --
--- Name: ad_images image_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: ad_images image_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ad_images
