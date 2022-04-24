@@ -3,7 +3,7 @@ import config from '../../config.js';
 
 const Client = PG.Client;
 
-export default class Controller {
+export default class Connection {
     constructor() {
         this.client = new Client(config.database);
         this.client.connect();

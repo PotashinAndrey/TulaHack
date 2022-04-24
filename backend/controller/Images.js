@@ -1,64 +1,23 @@
 import { promises } from "fs";
 import path from "path";
 import config from "../../config.js";
-import DB from './Connection.js';
+import db from "../service/DB.js";
 
 const ROOT = config.storage;
 
 /**  {Advert} @class
   */
 export default class Images {
-  static upload(params) {
-    try {
-      console.log("UPLOAD", params);
-      const db = new DB();
-      const client = db.getClient();
-      client.query('INSERT INTO images (id) values ($1)', [params.id], (error, result) => {
-          if (!error) {
-            console.log(result?.rows);
-          } else {
-            console.log('error', error);
-          }
-      });
-      return {};
-    } catch (error) {
-      console.log(error);
-    }
+  static async upload(params) {
+    return await db('INSERT INTO images (id) values ($1)', [params.id]);
   }
 
   static async add(params) {
-    try {
-      const { ad, image } = params; // ID объявления, ID картинки
-      const db = new DB();
-      const client = db.getClient();
-      client.query('INSERT INTO ad_images (ad, image) values ($1, $2)', [ad, image], (error, result) => {
-          if (!error) {
-            console.log(result?.rows);
-          } else {
-            console.log('error', error);
-          }
-      });
-    } catch(error) {
-      console.log(error);
-    }
+    const { ad, image } = params; // ID объявления, ID картинки
+    return await db('INSERT INTO ad_images (ad, image) values ($1, $2)', [ad, image]);
   }
 
   static async get(params) {
-    return new Promise((resolve, reject) => {
-      console.log('PARAMS', params);
-
-      const { advert } = params; // ID объявления
-      const db = new DB();
-      const client = db.getClient();
-      client.query('SELECT * from images', (error, result) => {
-          if (!error) {
-            console.log(result.rows);
-            resolve(result.rows);
-          } else {
-            console.log('error', error);
-            reject(error);
-          }
-      });
-    });
+    return await db('SELECT * from images');
   }
 }

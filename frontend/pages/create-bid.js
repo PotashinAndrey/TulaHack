@@ -142,19 +142,17 @@ export default class CreateBid extends Component {
         amount: node.getElementById("bet").value
       });
 
-      const container = node.getElementById('root');
+      const container = $('ui-panel', node);
       const newdiv = document.createElement("div");
-      newdiv.style.backgroundColor = 'white';
-      newdiv.style.position = 'absolute';
-      newdiv.style.width = '100%';
-      newdiv.style.textAlign = "center";
       newdiv.style.fontSize = "40px";
       newdiv.innerText = "Ставка сделана!";
 
       container.appendChild(newdiv);
+      $('#betBlock', node).style.display = "none";
       setTimeout(() => {
         container.removeChild(newdiv);
-      }, 1000);
+        $('#betBlock', node).style.display = "block";
+      }, 10000);
     });
 
     return this;
