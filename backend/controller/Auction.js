@@ -49,9 +49,9 @@ export default class Auction {
       .sort((a, b) => b.amount - a.amount); // мб сорт в другую сторону
 
     const winnerBid = filtered[0];
-    console.log('winner', winnerBid, adId);
-    db(`UPDATE ads SET winner_bid = $1 WHERE id = $2`, [winnerBid.id, adId]);
+    if (!winnerBid) return {error: "no-winner"};
 
+    db(`UPDATE ads SET winner_bid = $1 WHERE id = $2`, [winnerBid.id, adId]);
     // тут бы дернуть телегу
     sender(`В аукционе ${adId} победила ставка ${JSON.stringify(winnerBid)}`);
     return { winner: winnerBid, ad: adId }
