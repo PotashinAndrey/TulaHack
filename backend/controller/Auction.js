@@ -39,4 +39,23 @@ export default class Auction {
       console.log(error);
     }
   }
+
+  static get() {
+    return new Promise((resolve, reject) => {
+      const db = new DB();
+      const client = db.getClient();
+      client.query(
+        'SELECT * FROM ads LIMIT 3',
+        (error, result) => {
+          if (!error) {
+            console.log('auctions', result?.rows);
+            resolve(result?.rows);
+          } else {
+            console.log('error', error);
+            reject(error);
+          }
+        }
+      );
+    });
+  }
 }
