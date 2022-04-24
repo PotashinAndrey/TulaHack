@@ -25,10 +25,42 @@ export default class Auction {
         ad: id,
         image
       });
+      // setTimeout(() => {
+      //   const calculateWinner = async (adId) => {
+      //     console.log('Calculating winner', adId);
+      //     const bids = await db(
+      //       `SELECT * FROM bids WHERE ad = "${adId}"`
+      //     );
+      //     console.log(bids);
+      //     const winnerBid = bids[0];
+      //     console.log(winnerBid);
+      //     return db(
+      //       `UPDATE ads 
+      //       SET winner_bid = ${winnerBid.id} 
+      //       WHERE id = ${adId}`
+      //     );
+      //   };
+      //   calculateWinner(id);
+      // }, 5 * 1000);
       return {};
     } catch(error) {
       console.log(error);
     }
+  }
+
+  static setState(params) {
+    return db(
+      `UPDATE ads 
+      SET closed = ${params.state} 
+      WHERE id = ${params.id}`,
+      (error, result) => {
+        if (!error) {
+          console.log(result?.rows);
+        } else {
+          console.log('error', error);
+        }
+      }
+    );
   }
 
   static get() {
@@ -37,6 +69,6 @@ export default class Auction {
         FROM ads
           JOIN ad_images ON ad_images.ad = ads.id
         LIMIT 3`
-      )
+    );
   }
 }
