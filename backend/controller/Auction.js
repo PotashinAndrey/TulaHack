@@ -45,10 +45,14 @@ export default class Auction {
       const db = new DB();
       const client = db.getClient();
       client.query(
-        'SELECT * FROM ads LIMIT 3',
+        `SELECT ads.id, ads.author, ads.name, ads.description, ads.price, ads.opened_date, ads.opened, ad_images.image
+        FROM ads
+            JOIN ad_images ON ad_images.ad = ads.id
+        LIMIT 3`,
         (error, result) => {
           if (!error) {
             console.log('auctions', result?.rows);
+            // const res this.mergeImage(result?.rows);
             resolve(result?.rows);
           } else {
             console.log('error', error);

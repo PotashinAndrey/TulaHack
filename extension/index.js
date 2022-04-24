@@ -7,23 +7,23 @@ const PATH = {
 async function api(method, data = {}, timeout = 5000) {
     const ctrl = new AbortController() // timeout
     setTimeout(() => ctrl.abort(), timeout);
-  
+
     try {
-      let r = await fetch(HOST + 'api/' + method , {
-        method: "POST",
-        body: JSON.stringify(data),
-        signal: ctrl.signal,
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        }
-      });
-      console.log('HTTP response code:', r.status);
-      return await r.json();
-    } catch(e) {
-      console.log('Huston, we have problem...:', e);
-      return Promise.reject(e);
+        let r = await fetch(HOST + 'api/' + method, {
+            method: "POST",
+            body: JSON.stringify(data),
+            signal: ctrl.signal,
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            }
+        });
+        console.log('HTTP response code:', r.status);
+        return await r.json();
+    } catch (e) {
+        console.log('Huston, we have problem...:', e);
+        return Promise.reject(e);
     }
-  }
+}
 
 const openAuc = (link) => {
     const wrapper = document.createElement("div");
@@ -154,22 +154,24 @@ setTimeout(async () => {
     lotsContainer.style.justifyContent = "space-between";
     lotsContainer.style.gap = "5px";
 
-    // const lots = await api();
+    const lots = await api("auction.get");
 
     for (let i = 0; i < 3; i++) {
         const lot = document.createElement("div");
 
         lot.style.width = "90px";
         lot.style.height = "90px";
-        // lot.style.background = "white";
         lot.style.borderRadius = "16px";
         lot.style.alignSelf = "center";
         lot.style.cursor = "pointer";
 
-        lot.style.backgroundImage = `url("https://localhost:7443/storage/25caa162-5c47-4c0f-9c7d-6ce99ba82371.png")`
+        lot.style.backgroundImage = `url("https://localhost:7443/storage/${i}.png")`;
+        // lot.style.backgroundImage = `url("${lots[i].image}")`;
+        lot.style.backgroundSize = "cover";
 
         lot.addEventListener("click", () => {
             console.log(i);
+            openAuc(HOST + PATH['create-bid'] + `?id=${lots[i].id}`);
         });
 
         lotsContainer.appendChild(lot);
@@ -178,4 +180,4 @@ setTimeout(async () => {
     ourAucs.appendChild(lotsContainer);
 
     mainBlock.insertBefore(ourAucs, mainBlock.firstChild);
-}, 1000);
+}, 2000);
