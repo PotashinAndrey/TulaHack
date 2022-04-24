@@ -1,7 +1,12 @@
 import Component, { html, css } from '../class/Component.js';
-import AppButton from '../components/app-button.js';
 import $ from '../class/DOM.js';
-import locator from '../script/locator.js';
+import UIPanel from '../components/panel.js';
+import UICaption from "../components/caption.js";
+import UIInput from '../components/input.js';
+import UIText from '../components/text.js';
+import UITextarea from '../components/textarea.js';
+import UIButton from '../components/button.js';
+import UIInputCount from '../components/input-count.js';
 import api from "../script/api.js";
 
 const attributes = {};
@@ -63,18 +68,9 @@ const style = css`
     display: block;
     position: relative;
   }
-  #root {
-    height: 100vh;
-    font-family: var(--font);
-    position: relative;
-  }
-
-  #name {
-    margin: 50px;
-  }
-
-  #description {
-    margin: 50px;
+  ui-panel {
+    margin: 20px;
+    padding: 40px 30px;
   }
 
   #img {
@@ -82,47 +78,18 @@ const style = css`
     max-width: 300px;
   }
 
-  #first-price {
-    margin: 20px 50px;
-    font-size: 24px;
+  ui-input-count, ui-button {
+    display: block;
   }
 
   #betBtn {
-    background: #c722b6;
-    border: none;
-    padding: 10px;
-    font-size: 20px;
-    color: white;
-    margin-left: 15px;
-    cursor: pointer;
-  }
-
-  #bet {
-    outline: none;
-    font-size: 20px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 10px;
+    margin-top: 40px;
   }
 
   #timer {
     margin: 20px 50px;
     font-size: 20px;
 
-  }
-
-  .do-lot {
-    margin: 20px 50px;
-  }
-
-  }
-  slot {
-    display: block;
-    position: relative;
-
-    overflow: auto;
-    overscroll-behavior-y: contain;
-    /* padding-bottom: 80px; */
   }`;
 
 /** Раскладка {CreateBid} @class @ui @component <create-bid />
@@ -132,17 +99,19 @@ export default class CreateBid extends Component {
   static template = html`
     <template>
       <style>${style}</style>
-      <div id="root">
-        <h1 id="name">Название</h1>
+      <ui-panel>
+        <ui-caption id="name" large>Название лота</ui-caption>
         <img id="img" src="../../extension/logo.png" />
-        <p id="description">Описание</p>
-        <div id="timer"></div>
-        <div id="first-price"></div>
+        <ui-text id="description">Описание</ui-text>
+
         <div id="betBlock" class="do-lot">
-          <input id="bet" placeholder="Ваша ставка..." />
-          <button id="betBtn">Сделать Ставку</button>
+          <ui-caption id="first-price" small>Начальная ставка</ui-caption>
+          <ui-input-count id="bet" value="1000">Ваша ставка</ui-input-count>
+
+          <ui-button id="betBtn">Сделать ставку</ui-button>
         </div>
-      </div>
+        <div id="timer"></div>
+      </ui-panel>
     </template>`;
 
   /** Создание элемента в DOM (DOM доступен) / mount @lifecycle
@@ -192,8 +161,5 @@ export default class CreateBid extends Component {
   }
 }
 
-Component.init(CreateBid, 'create-bid', {
-  attributes,
-  properties
-});
+Component.init(CreateBid, 'create-bid', { attributes, properties });
 

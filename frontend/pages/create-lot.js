@@ -19,10 +19,6 @@ const style = css`
     height: calc(100vh - 40px);
     width: 100%;
   }
-  #root {
-    height: 100vh;
-    font-family: var(--font);
-  }
   ui-panel {
     margin: 20px;
     padding: 40px 30px;
@@ -127,15 +123,6 @@ const style = css`
     align-items: baseline;
     gap: 10px;
     margin-bottom: 30px;
-  }
-
-  slot {
-    display: block;
-    position: relative;
-
-    overflow: auto;
-    overscroll-behavior-y: contain;
-    /* padding-bottom: 80px; */
   }`;
 
 /** Раскладка {CreateLot} @class @ui @component <create-lot />
