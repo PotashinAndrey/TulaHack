@@ -1,7 +1,4 @@
 import Component, { html, css } from '../class/Component.js';
-// import AppButton from '../components/app-button.js';
-// import $ from '../class/DOM.js';
-// import locator from '../script/locator.js';
 import api from "../script/api.js";
 
 const attributes = {};
@@ -53,8 +50,8 @@ export default class BuiltIn extends Component {
   async mount(node) {
     super.mount(node, attributes, properties);
 
-      console.log("resStarted");
-      const res = await api("auction.get");
+    console.log("resStarted");
+    const res = await api("auction.get");
     console.log("res", res);
 
     for (let i = 0; i < 3; i++) {
@@ -62,9 +59,10 @@ export default class BuiltIn extends Component {
       node.getElementById(`img-${i}`).addEventListener("click", () => {
         console.log(window, document, res[i].id);
         // openAuc(HOST + PATH['create-bid'] + `?id=${lots[i].id}`);
-    });    
+        parent.postMessage(JSON.stringify({ auction: true, open: "bid", id: res[i].id }), '*');
+      });
     }
-    
+
     return this;
   }
 }

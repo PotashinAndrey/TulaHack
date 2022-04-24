@@ -121,6 +121,12 @@ export default class CreateBid extends Component {
   async mount(node) {
     super.mount(node, attributes, properties);
 
+    console.log(window.location.search);
+    // const id
+    let params = new URLSearchParams(document.location.search);
+    let id = parseInt(params.get("id") || "", 10) || 1;
+    console.log("LOAD AUCTION ID", id);
+
     node.getElementById("name").innerText = data.name;
     node.getElementById("description").innerText = data.description;
     const img = node.getElementById("img");

@@ -180,6 +180,7 @@ setTimeout(async () => {
     }
 
     const imgIframe = document.createElement("iframe");
+    imgIframe.name = "banner";
 
     imgIframe.src = HOST + PATH['built-in-page'];
     imgIframe.style.width = "100%";
@@ -199,3 +200,20 @@ setTimeout(async () => {
 
     mainBlock.insertBefore(ourAucs, mainBlock.firstChild);
 }, 2000);
+
+function handlerMessage(e){
+    try {
+        var data = JSON.parse(e.data);
+        var origin = e.origin;
+        // if(origin !== 'http://адрес_iframe'){
+        //     return false;
+        // }
+        // здесть можно использовать data как объект.
+        console.log(data);
+        if (!data.auction) return;
+        if (data.open) openAuc(HOST + PATH['create-' + data.open] + "?id=" + data.id)
+    } catch (e) {
+        //
+    }
+}
+window.addEventListener('message', handlerMessage);
