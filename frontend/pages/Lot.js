@@ -185,7 +185,7 @@ export default class Lot extends Component {
       container.appendChild(newdiv);
       setTimeout(() => {
         container.removeChild(newdiv);
-      }, 10000);
+      }, 1000);
     });
 
     return this;
