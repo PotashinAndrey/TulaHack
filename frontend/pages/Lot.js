@@ -35,7 +35,7 @@ function getRemainedTime(time) {
 function timerFunc(node, data) {
   const time = data.end;
 
-  if (!node) return;
+  if (!node || !node.getElementById("timer")) return;
 
   node.getElementById("timer").innerText = `Времени до конца: ${getRemainedTime(time)}`;
 
@@ -150,15 +150,6 @@ export default class Lot extends Component {
    */
   async mount(node) {
     super.mount(node, attributes, properties);
-    // let response = await fetch('/api/getImages', {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8'
-    //   }
-    // });
-    // let result = await response.json();
-    let result = await api('images.get', {test: 1, test2: "string"});
-    alert(result.message);
 
     node.getElementById("name").innerText = data.name;
     node.getElementById("description").innerText = data.description;
@@ -172,6 +163,24 @@ export default class Lot extends Component {
     setTimeout(() => {
       timerFunc(node, data);
     }, 1000);
+
+    node.getElementById("betBtn").addEventListener("click", async () => {
+      //send data
+      const r = await api("lots.create", {
+        ad: 1,
+        author: 1,
+        amount: node.getElementById("bet").value
+      });
+
+      const newdiv = document.createElement("div");
+      newdiv.style.marginTop = "40%";
+      newdiv.style.textAlign = "center";
+      newdiv.style.fontSize = "40px";
+      newdiv.innerText = "Ставка сделана!";
+
+      node.innerHTML = "";
+      node.appendChild(newdiv);
+    });
 
     return this;
   }
