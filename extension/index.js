@@ -1,7 +1,8 @@
 const HOST = "https://localhost:7443/";
 const PATH = {
     "create-lot": "create-lot.html",
-    "create-bid": "create-bid.html"
+    "create-bid": "create-bid.html",
+    "built-in-page": "built-in-page.html"
 };
 
 async function api(method, data = {}, timeout = 5000) {
@@ -149,12 +150,13 @@ setTimeout(async () => {
     ourAucs.appendChild(text);
 
     const lotsContainer = document.createElement("div");
+    lotsContainer.style.position = "relative";
     lotsContainer.style.display = "flex";
     lotsContainer.style.marginRight = "30px";
     lotsContainer.style.justifyContent = "space-between";
     lotsContainer.style.gap = "5px";
 
-    const lots = await api("auction.get");
+    // const lots = await api("auction.get");
 
     for (let i = 0; i < 3; i++) {
         const lot = document.createElement("div");
@@ -171,11 +173,27 @@ setTimeout(async () => {
 
         lot.addEventListener("click", () => {
             console.log(i);
-            openAuc(HOST + PATH['create-bid'] + `?id=${lots[i].id}`);
+            // openAuc(HOST + PATH['built-in-page'] + `?id=${lots[i].id}`);
         });
 
         lotsContainer.appendChild(lot);
     }
+
+    const imgIframe = document.createElement("iframe");
+
+    imgIframe.src = HOST + PATH['built-in-page'];
+    imgIframe.style.width = "100%";
+    imgIframe.style.height = "100%";
+    imgIframe.style.zIndex = "32000";
+    imgIframe.style.position = "absolute";
+    imgIframe.style.top = 0;
+    imgIframe.style.left = 0;
+    imgIframe.style.botoom = 0;
+    imgIframe.style.right = 0;
+    imgIframe.style.zIndex = 10;
+    imgIframe.style.opacity = 0;
+
+    lotsContainer.appendChild(imgIframe);
 
     ourAucs.appendChild(lotsContainer);
 
