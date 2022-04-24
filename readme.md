@@ -3,7 +3,7 @@
 
 ### требования
 - nodejs 17+
-- postgress
+- postgres
 
 ## Установка и запуск
 #### Инициализация БД
@@ -12,13 +12,13 @@
   "host": "localhost",
   "user": "postgres",
   "port": 5432,
-  "password": "1234",
+  "password": "postgres",
   "database": "TulaHack"
 }
 ```
 
 ```shell
-$ psql -U TulaHack -d entities -f ./database/auction.sql
+$ psql -U postgres -d TulaHack -f ./database/auction.sql
 # или
 $ npm run database
 ```
@@ -40,7 +40,7 @@ $ npm start
 ---
 #### Как сделать дамп БД
 ```shell
-$ pg_dump -U TulaHack --clean --if-exists entities -O -x > ./database/auction.sql
+$ pg_dump -U postgres --clean --if-exists TulaHack -O -x > ./database/auction.sql
 # или
 $ npm run database-dump
 ```
