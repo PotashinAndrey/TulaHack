@@ -1,0 +1,73 @@
+import Component, { html, css } from '../class/Component.js';
+
+const style = css`
+  :host {
+    display: block;
+    font-size: 24px;
+    font-family: var(--font);
+    font-weight: 300;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+  }
+  :host([size="small"]) {
+    font-size: 18px;
+  }
+  :host([size="large"]) {
+    font-size: 30px;
+  }
+  :host([size="header"]) {
+    font-size: 48px;
+  }
+  :host([center]) {
+    text-align: center;
+  }
+  :host([right]) {
+    text-align: right;
+  }
+  :host([left]) {
+    text-align: left;
+  }
+  :host([no-wrap]) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+  slot {
+    color: var(--foreground);
+  }
+  ::slotted(a) {
+    color: var(--foreground);
+    text-decoration: none;
+  }`;
+
+const attributes = {}
+const properties = {}
+
+/** {UICaption} @class
+  * @description Отображение блока простого текста
+  */
+  export default class UICaption extends Component {
+    static template = html`
+      <template>
+        <style>${style}</style>
+        <slot></slot>
+      </template>`;
+
+  /** Создание компонента {UICaption} @constructor
+    * @param {string?} text содержимое элемента
+    */
+    constructor(text) {
+      super();
+      if (text) this.innerText = text;
+    }
+
+  /** Создание элемента в DOM (DOM доступен) / mount @lifecycle
+    * @param {ShadowRoot} node корневой узел элемента
+    * @return {Component} @this {UICaption} текущий компонент
+    */
+    mount(node) {
+      return super.mount(node, attributes, properties);
+    }
+  }
+
+Component.init(UICaption, 'ui-caption', { attributes, properties });

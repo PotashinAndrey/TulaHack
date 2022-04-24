@@ -17,6 +17,6 @@ main();
     const telegramBot = new TelegramBot(config)
       .init();
 
-    telegramBot.launch();
+    // telegramBot.launch();
   }
 

@@ -1,5 +1,12 @@
 import Component, { html, css } from '../class/Component.js';
-import AppButton from '../components/app-button.js';
+// import AppButton from '../components/app-button.js';
+import UIPanel from '../components/panel.js';
+import UICaption from "../components/caption.js";
+import UIInput from '../components/input.js';
+import UIText from '../components/text.js';
+import UITextarea from '../components/textarea.js';
+import UIButton from '../components/button.js';
+import UIInputCount from '../components/input-count.js';
 import $ from '../class/DOM.js';
 // import locator from '../script/locator.js';
 import api, { upload } from "../script/api.js";
@@ -16,25 +23,33 @@ const style = css`
     height: 100vh;
     font-family: var(--font);
   }
+  ui-panel {
+    margin: 20px;
+    padding: 40px 30px;
+  }
   #upload-container {
     margin: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 400px;
-    height: 400px;
+    height: 200px;
     outline: 2px dashed #5d5d5d;
     outline-offset: -12px;
-    background-color: rgba(199,34,182, 0.05);
+    background-color: #e0f7fa; /* rgba(199,34,182, 0.05); */
     font-family: 'Segoe UI';
     color: #1f3c44;
     border-radius: 10px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  #upload-container:hover {
+    background-color: #e1f5fe;
   }
 
   #upload-container img {
-    width: 40%;
+    width: 100px;
     margin-bottom: 20px;
     user-select: none;
   }
@@ -96,19 +111,7 @@ const style = css`
 
   .upload-block {
     margin: 20px 50px;
-  }
-
-  .createBtn {
-    background: #c722b6;
-    border: none;
-    width: 350px;
-    padding: 10px;
-    font-size: 20px;
-    color: white;
-    cursor: pointer;
-    margin-left: 50%;
-    margin-bottom: 40px;
-    transform: translate(-50%, 0);
+    font-family: var(--font);
   }
 
   .desc {
@@ -126,16 +129,6 @@ const style = css`
     margin-bottom: 30px;
   }
 
-  #description {
-    outline: none;
-    font-size: 20px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 10px;
-    width: 400px;
-
-  }
-
   slot {
     display: block;
     position: relative;
@@ -145,42 +138,48 @@ const style = css`
     /* padding-bottom: 80px; */
   }`;
 
-/** Раскладка {CreateLot} @class @ui @component <create-auc />
+/** Раскладка {CreateLot} @class @ui @component <create-lot />
   * description
   */
 export default class CreateLot extends Component {
   static template = html`
     <template>
       <style>${style}</style>
-      <h1 class="header">Создание лота</h1>
-      <div class="name">
-        <h2>Название лота:</h2>
-        <input placeholder="Ведите название..." id="nameId" class="input" type="text" size="40" />
-      </div>
-      <div id="upload-block-id" class="upload-block">
-        <div id="upload-container">
-          <img id="upload-image" src="icons/upload.svg">
-          <div>
-            <input id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg">
-            <label>Выберите файл</label>
-            <span>или перетащите его сюда</span>
+      <ui-panel>
+        <ui-caption large>Создание Аукциона-"наоборот"</ui-caption>
+        <ui-text>Участники будут делать ставки "в закрытую".</ui-text>
+        <ui-text>Победит тот, кто сделает минимальную уникальную ставку.</ui-text>
+
+        <ui-input placeholder="Название товара" id="nameId">Что вы продаёте?</ui-input>
+
+        <div id="upload-block-id" class="upload-block">
+          <div id="upload-container">
+            <img id="upload-image" src="icons/upload.svg">
+            <div>
+              <input id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg">
+              <ui-text>
+                <label>Выберите файл</label>
+                <span>или перетащите его сюда</span>
+              </ui-text>
+            </div>
           </div>
         </div>
-      </div>
-      <div id="previewImages"></div>
+        <div id="previewImages"></div>
 
-      <div class="desc">
-        <h2>Описание лота:</h2>
-        <input  id="description" placeholder="Описание вашего лота..." />
-      </div>
+        <ui-textarea id="description" placeholder="Описание товара">Расскажите о внешнем виде и особенности товара</ui-textarea>
 
-      <div class="price">
-        <h2>Стартовая цена:</h2>
-        <input id="price" class="input" placeholder="Стартовая цена лота..." size="40" />
-      </div>
+        <ui-input-count id="price" value="1000">Стартовая цена в рублях</ui-input-count>
+        <ui-text>Шаг цены - 10 рублей</ui-text>
+        <ui-button mode="primary" id="create">Создать аукцион</ui-button>
+      </ui-panel>
 
-      <button id="create" class="createBtn">Создать</button>
-      <slot></slot>
+      <!-- // <div class="price">
+      //   <h2>Стартовая цена:</h2>
+      //   <input id="price" class="input" placeholder="Стартовая цена лота..." size="40" />
+      // </div>
+
+      // <button id="create" class="createBtn">Создать</button>
+      // <slot></slot> -->
     </template>`;
 
   /** Создание элемента в DOM (DOM доступен) / mount @lifecycle
