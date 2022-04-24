@@ -8,7 +8,8 @@ const images = {
 };
 
 const auction = {
-  create: Auction.create
+  create: Auction.create,
+  get: Auction.get
 };
 
 const lots = {
