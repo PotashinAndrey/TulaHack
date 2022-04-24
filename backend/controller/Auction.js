@@ -1,6 +1,6 @@
 import DB from './Connection.js';
 import { v4 } from 'uuid';
-import Images from './controller/Images.js';
+import Images from './Images.js';
 
 /**  {Auction} @class
   */
