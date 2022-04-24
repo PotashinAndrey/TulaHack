@@ -78,11 +78,34 @@ ALTER SEQUENCE public.adds_id_seq OWNED BY public.ads.id;
 CREATE TABLE public.bids (
     ad integer NOT NULL,
     author integer NOT NULL,
-    amount numeric NOT NULL
+    amount numeric NOT NULL,
+    id integer NOT NULL
 );
 
 
 ALTER TABLE public.bids OWNER TO postgres;
+
+--
+-- Name: bids_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.bids_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.bids_id_seq OWNER TO postgres;
+
+--
+-- Name: bids_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.bids_id_seq OWNED BY public.bids.id;
+
 
 --
 -- Name: images; Type: TABLE; Schema: public; Owner: postgres
@@ -130,6 +153,13 @@ CREATE TABLE public.users (
 ALTER TABLE public.users OWNER TO postgres;
 
 --
+-- Name: bids id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.bids ALTER COLUMN id SET DEFAULT nextval('public.bids_id_seq'::regclass);
+
+
+--
 -- Data for Name: ad_images; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -151,8 +181,10 @@ COPY public.ads (id, author, name, description, price, opened_date, opened) FROM
 -- Data for Name: bids; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.bids (ad, author, amount) FROM stdin;
-1	2	1500
+COPY public.bids (ad, author, amount, id) FROM stdin;
+1	2	1500	1
+1	1	200	2
+1	1	200	3
 \.
 
 
@@ -187,6 +219,13 @@ SELECT pg_catalog.setval('public.adds_id_seq', 1, true);
 
 
 --
+-- Name: bids_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.bids_id_seq', 3, true);
+
+
+--
 -- Name: images_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -214,7 +253,7 @@ ALTER TABLE ONLY public.ads
 --
 
 ALTER TABLE ONLY public.bids
-    ADD CONSTRAINT bids_pkey PRIMARY KEY (ad);
+    ADD CONSTRAINT bids_pkey PRIMARY KEY (id) INCLUDE (id);
 
 
 --
