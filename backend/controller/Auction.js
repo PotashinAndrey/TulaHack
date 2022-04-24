@@ -25,23 +25,24 @@ export default class Auction {
         ad: id,
         image
       });
-      // setTimeout(() => {
-      //   const calculateWinner = async (adId) => {
-      //     console.log('Calculating winner', adId);
-      //     const bids = await db(
-      //       `SELECT * FROM bids WHERE ad = "${adId}"`
-      //     );
-      //     console.log(bids);
-      //     const winnerBid = bids[0];
-      //     console.log(winnerBid);
-      //     return db(
-      //       `UPDATE ads 
-      //       SET winner_bid = ${winnerBid.id} 
-      //       WHERE id = ${adId}`
-      //     );
-      //   };
-      //   calculateWinner(id);
-      // }, 5 * 1000);
+      setTimeout(() => {
+        const calculateWinner = async (adId) => {
+          console.log('Calculating winner', adId);
+          const bids = await db(
+            `SELECT * FROM bids WHERE ad = "${adId}"`
+          );
+          console.log(bids);
+          const winnerBid = bids[0];
+          console.log(winnerBid);
+          return db(
+            `UPDATE ads
+            SET winner_bid = ${winnerBid.id}
+            WHERE id = ${adId}`
+          );
+        };
+
+        calculateWinner(id);
+      }, 5 * 1000);
       return {};
     } catch(error) {
       console.log(error);
@@ -50,8 +51,8 @@ export default class Auction {
 
   static setState(params) {
     return db(
-      `UPDATE ads 
-      SET closed = ${params.state} 
+      `UPDATE ads
+      SET closed = ${params.state}
       WHERE id = ${params.id}`,
       (error, result) => {
         if (!error) {
@@ -69,6 +70,12 @@ export default class Auction {
         FROM ads
           JOIN ad_images ON ad_images.ad = ads.id
         LIMIT 3`
+    );
+  }
+
+  static getById({ params }) {
+    return db(
+      `SELECT ads.id, ads.author, ads.name, ads.description, ads.price, ads.opened_date, ads.opened, ad_images.image FROM ads WHERE id = ${params.id}`
     );
   }
 }

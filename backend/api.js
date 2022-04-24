@@ -10,7 +10,8 @@ const images = {
 const auction = {
   create: Auction.create,
   get: Auction.get,
-  setState: Auction.setState
+  setState: Auction.setState,
+  getById: Auction.getById
 };
 
 const lots = {
