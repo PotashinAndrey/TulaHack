@@ -13,7 +13,7 @@ export default {
     host: 'localhost',
     user: 'postgres',
     port: 5432,
-    password: '1234',
+    password: 'postgres',
     database: 'TulaHack'
   },
 
