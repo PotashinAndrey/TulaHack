@@ -14,15 +14,14 @@ export default class Auction {
         description,
         price,
         openedDate,
-        duration,
         image
       } = params; // ID объявления, ID картинки
       const id = v4();
       const db = new DB();
       const client = db.getClient();
       client.query(
-        'INSERT INTO ads (id, author, name, description, price, opened_date, duration) values ($1, $2, $3, $4, $5, $6)',
-        [id, author, name, description, price, openedDate ?? +new Date(), duration ?? 3600000],
+        'INSERT INTO ads (id, author, name, description, price, opened_date) values ($1, $2, $3, $4, $5, $6)',
+        [id, author, name, description, price, openedDate ?? +new Date()],
         (error, result) => {
           if (!error) {
             console.log(result?.rows);
