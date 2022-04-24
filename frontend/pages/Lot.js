@@ -66,6 +66,7 @@ const style = css`
   #root {
     height: 100vh;
     font-family: var(--font);
+    position: relative;
   }
 
   #name {
@@ -172,14 +173,19 @@ export default class Lot extends Component {
         amount: node.getElementById("bet").value
       });
 
+      const container = node.getElementById('root');
       const newdiv = document.createElement("div");
-      newdiv.style.marginTop = "40%";
+      newdiv.style.backgroundColor = 'white';
+      newdiv.style.position = 'absolute';
+      newdiv.style.width = '100%';
       newdiv.style.textAlign = "center";
       newdiv.style.fontSize = "40px";
       newdiv.innerText = "Ставка сделана!";
 
-      node.innerHTML = "";
-      node.appendChild(newdiv);
+      container.appendChild(newdiv);
+      setTimeout(() => {
+        container.removeChild(newdiv);
+      }, 10000);
     });
 
     return this;
