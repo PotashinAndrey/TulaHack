@@ -7,7 +7,7 @@ import Images from './Images.js';
 export default class Auction {
   static create(params) {
     try {
-      console.log("AUCTION.CREATE", params);
+      // console.log("AUCTION.CREATE", params);
       const {
         author,
         name,
@@ -25,21 +25,21 @@ export default class Auction {
         ad: id,
         image
       });
-      setTimeout(() => {
-        Auction.winner({id});
-      }, 5 * 1000);
-      return {};
+      // setTimeout(() => {
+      //   Auction.winner({id});
+      // }, 5 * 1000);
+      return { id };
     } catch(error) {
-      console.log(error);
+      // console.log(error);
     }
   }
 
   static async winner(params, sender) {
     const {id: adId} = params;
 
-    console.log('Calculating winner', adId);
+    // console.log('Calculating winner', adId);
     const bids = await db(`SELECT * FROM bids WHERE ad = $1`, [adId]);
-    console.log(bids);
+    // console.log(bids);
 
     const filter = bids
       .map(bid => bids.filter(b => bid.amount === b.amount).length === 1);
@@ -54,36 +54,26 @@ export default class Auction {
 
     // тут бы дернуть телегу
     sender(`В аукционе ${adId} победила ставка ${JSON.stringify(winnerBid)}`);
-    return {winner: winnerBid, ad: adId}
+    return { winner: winnerBid, ad: adId }
   }
 
-  static setState(params) {
-    return db(
-      `UPDATE ads
-      SET closed = ${params.state}
-      WHERE id = ${params.id}`,
-      (error, result) => {
-        if (!error) {
-          console.log(result?.rows);
-        } else {
-          console.log('error', error);
-        }
-      }
-    );
+  static async setState(params) {
+    return await db(`UPDATE ads SET closed = $1 WHERE id = $2`, [params.state, params.id]);
   }
 
-  static get() {
-    return db(
+  static async get() {
+    return await db(
       `SELECT ads.id, ads.author, ads.name, ads.description, ads.price, ads.opened_date, ads.opened, ad_images.image
         FROM ads
-          JOIN ad_images ON ad_images.ad = ads.id
+        JOIN ad_images ON ad_images.ad = ads.id
+        ORDER BY ads.opened DESC
         LIMIT 3`
     );
   }
 
-  static getById({ params }) {
-    return db(
-      `SELECT ads.id, ads.author, ads.name, ads.description, ads.price, ads.opened_date, ads.opened, ad_images.image FROM ads WHERE id = ${params.id}`
-    );
+  static async id(params) {
+    const { id } = params;
+    const temp = await db(`SELECT ads.id, ads.author, ads.name, ads.description, ads.price, ads.opened_date, ads.opened, ad_images.image FROM ads JOIN ad_images ON ad_images.ad = ads.id WHERE id = $1`, [id]);
+    return temp[0];
   }
 }

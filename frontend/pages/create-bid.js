@@ -127,9 +127,7 @@ export default class CreateBid extends Component {
     let id = params.get("id");
     // console.log("LOAD AUCTION ID", id);
 
-    
-
-    const data = await api("action.getById", {id: id});
+    const data = await api("auction.id", {id});
     // const data = await api("action.getById", {id: "27ae6834-54d6-47f3-b764-711adeb8f894"});
     // console.log("data", data, id, data.res);
 
@@ -142,11 +140,11 @@ export default class CreateBid extends Component {
     node.getElementById("name").innerText = data.name;
     node.getElementById("description").innerText = data.description;
     const img = node.getElementById("img");
-    img.src = data.src;
+    img.src = "./storage/" + data.image + ".jpeg";
     img.alt = data.name;
-    node.getElementById("first-price").innerText = `Начальная ставка: ${data.firstBet} руб.`;
+    node.getElementById("first-price").innerText = `Начальная ставка: ${data.price} руб.`;
 
-    node.getElementById("timer").innerText = `Времени до конца: ${getRemainedTime(data.end)}`;
+    node.getElementById("timer").innerText = `Времени до конца: ${getRemainedTime(new Date(Date.now() + 100 * 1000))}`;
 
     setTimeout(() => {
       timerFunc(node, data);
@@ -155,7 +153,7 @@ export default class CreateBid extends Component {
     node.getElementById("betBtn").addEventListener("click", async () => {
       //send data
       const r = await api("lots.create", {
-        ad: '21adf549-9a47-40d3-9ec2-c38877851d50',
+        ad: id,
         author: Math.random() % 2 ? 1 : 2,
         amount: node.getElementById("bet").value
       });

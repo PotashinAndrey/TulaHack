@@ -93,11 +93,12 @@ import Images from './controller/Images.js';
         // api call
         const [group, method] = ctx.request.path.slice(1).split('.');
         try {
-          // console.log('CALL', group, method, methods[group]?.[method]);
+          console.log('CALL', group, method, methods[group]?.[method], ctx.request.body);
           const result = await methods[group]?.[method]?.(ctx.request.body, sender);
           ctx.body = result;
         } catch (e) {
           ctx.body = e;
+          console.error(e);
           ctx.status = 406; // !
         }
       });

@@ -11,7 +11,7 @@ const auction = {
   create: Auction.create,
   get: Auction.get,
   setState: Auction.setState,
-  getById: Auction.getById,
+  id: Auction.id,
   winner: Auction.winner
 };
 

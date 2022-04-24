@@ -15,7 +15,7 @@ main();
     const application = new Application(config)
       .static()
       .uploader()
-      .methods(methods, telegramBot.message);
+      .methods(methods, (...args) => telegramBot.message(...args));
 
     application.launch();
   }

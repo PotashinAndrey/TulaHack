@@ -7,10 +7,10 @@ export default async function db(query, values) {
 
     const callback = (error, result) => {
       if (!error) {
-        console.log(result?.rows);
+        // console.log(result?.rows);
         resolve(result?.rows);
       } else {
-        console.log('error', error);
+        // console.log('error', error);
         reject(error);
       }
     };

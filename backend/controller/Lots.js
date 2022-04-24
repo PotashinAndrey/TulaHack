@@ -4,7 +4,7 @@ import db from "../service/DB.js";
   */
 export default class Lots {
   static async create(params) {
-    console.log("LOT.CREATE", params);
+    // console.log("LOT.CREATE", params);
     const {
       ad,
       author,
