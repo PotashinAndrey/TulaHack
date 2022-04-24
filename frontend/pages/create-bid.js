@@ -135,6 +135,10 @@ export default class CreateBid extends Component {
 
     // console.log("data", data);
 
+    // ДЕРНУТЬ за победителем
+    // const temp = await api("auction.winner", {id});
+    // console.log(temp);
+
     node.getElementById("name").innerText = data.name;
     node.getElementById("description").innerText = data.description;
     const img = node.getElementById("img");
