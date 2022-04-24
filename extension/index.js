@@ -1,4 +1,3 @@
-
 const HOST = "https://localhost:7443/";
 const PATH = {
     "create-lot": "create-lot.html",
@@ -115,16 +114,38 @@ setTimeout(() => {
     ourAucs.style.background = "#c722b6";
     ourAucs.style.height = "120px";
     ourAucs.style.marginBottom = "10px";
+    ourAucs.style.display = "flex";
+    ourAucs.style.justifyContent = "space-between";
 
     const text = document.createElement("h1");
     text.style.color = "white";
     text.style.maxWidth = "300px";
     text.style.fontSize = "30px";
+    text.style.marginLeft = "30px";
+    text.style.alignSelf = "center";
     text.innerText = "Попробуйте обратный аукцион!"
 
     ourAucs.appendChild(text);
 
-    mainBlock.insertBefore(ourAucs, mainBlock.firstChild);
+    const lotsContainer = document.createElement("div");
+    lotsContainer.style.display = "flex";
+    lotsContainer.style.marginRight = "30px";
+    lotsContainer.style.justifyContent = "space-between";
+    lotsContainer.style.gap = "5px";
 
-    console.log(mainBlock);
+    for (let i = 0; i < 3; i++) {
+        const lot = document.createElement("div");
+
+        lot.style.width = "90px";
+        lot.style.height = "90px";
+        lot.style.background = "white";
+        lot.style.borderRadius = "16px";
+        lot.style.alignSelf = "center";
+
+        lotsContainer.appendChild(lot);
+    }
+
+    ourAucs.appendChild(lotsContainer);
+
+    mainBlock.insertBefore(ourAucs, mainBlock.firstChild);
 }, 1000);
