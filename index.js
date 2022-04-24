@@ -7,16 +7,16 @@ main();
 
 /** */
   async function main() {
-    const application = new Application(config)
-      .static()
-      .uploader()
-      .methods(methods);
-
-    application.launch();
-
     const telegramBot = new TelegramBot(config)
       .init();
 
-    // telegramBot.launch();
+    telegramBot.launch();
+
+    const application = new Application(config)
+      .static()
+      .uploader()
+      .methods(methods, telegramBot.message);
+
+    application.launch();
   }
 

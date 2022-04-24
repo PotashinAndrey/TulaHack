@@ -19,6 +19,7 @@ export default {
 
   telegram: {
     name: "https://t.me/TulHackBot",
-    token: "5307549521:AAHuZtS_HqImYOfJ2HED4siMuQEK2H-Kgz4"
+    token: "5307549521:AAHuZtS_HqImYOfJ2HED4siMuQEK2H-Kgz4",
+    chat: 304888926
   }
 }

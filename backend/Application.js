@@ -81,7 +81,7 @@ import Images from './controller/Images.js';
     }
 
   /** methods */
-    methods(methods) {
+    methods(methods, sender) {
       const api = new Koa();
       api.use(bodyParser());
 
@@ -94,7 +94,7 @@ import Images from './controller/Images.js';
         const [group, method] = ctx.request.path.slice(1).split('.');
         try {
           // console.log('CALL', group, method, methods[group]?.[method]);
-          const result = await methods[group]?.[method]?.(ctx.request.body);
+          const result = await methods[group]?.[method]?.(ctx.request.body, sender);
           ctx.body = result;
         } catch (e) {
           ctx.body = e;

@@ -34,7 +34,7 @@ import { Keyboard } from 'telegram-keyboard';
       });
 
       this.#bot.command('log', ctx => {
-        console.log('запрос логов')
+        console.log('запрос логов', ctx.message.chat.id)
         ctx.telegram.sendMessage(ctx.message.chat.id, "какой-то лог");
       });
 
@@ -73,5 +73,11 @@ import { Keyboard } from 'telegram-keyboard';
 
       process.once('SIGINT', () => this.#bot.stop('SIGINT'))
       process.once('SIGTERM', () => this.#bot.stop('SIGTERM'))
+    }
+
+    message(text) {
+      const chat = this.config.chat;
+      this.#bot.telegram.sendMessage(chat, text);
+      return this;
     }
   };

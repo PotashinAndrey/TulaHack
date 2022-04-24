@@ -34,7 +34,7 @@ export default class Auction {
     }
   }
 
-  static async winner(params) {
+  static async winner(params, sender) {
     const {id: adId} = params;
 
     console.log('Calculating winner', adId);
@@ -53,6 +53,7 @@ export default class Auction {
     db(`UPDATE ads SET winner_bid = $1 WHERE id = $2`, [winnerBid.id, adId]);
 
     // тут бы дернуть телегу
+    sender(`В аукционе ${adId} победила ставка ${JSON.stringify(winnerBid)}`);
     return {winner: winnerBid, ad: adId}
   }
 

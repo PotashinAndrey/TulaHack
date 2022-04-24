@@ -128,8 +128,8 @@ export default class CreateBid extends Component {
     console.log("LOAD AUCTION ID", id);
 
     // ДЕРНУТЬ за победителем
-    // const temp = await api("auction.winner", {id});
-    // console.log(temp);
+    const temp = await api("auction.winner", {id});
+    console.log(temp);
 
     node.getElementById("name").innerText = data.name;
     node.getElementById("description").innerText = data.description;
