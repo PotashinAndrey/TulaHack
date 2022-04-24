@@ -137,8 +137,8 @@ export default class CreateBid extends Component {
     node.getElementById("betBtn").addEventListener("click", async () => {
       //send data
       const r = await api("lots.create", {
-        ad: 1,
-        author: 1,
+        ad: '21adf549-9a47-40d3-9ec2-c38877851d50',
+        author: Math.random() % 2 ? 1 : 2,
         amount: node.getElementById("bet").value
       });
 
