@@ -9,7 +9,9 @@
     "start": "node --experimental-json-modules ./index.js",
     "lint": "./node_modules/eslint/bin/eslint.js .",
     "clear": "rm -rf node_modules package-lock.json",
-    "debug": "node --experimental-json-modules --nolazy --inspect-brk=9229 index.js"
+    "debug": "node --experimental-json-modules --nolazy --inspect-brk=9229 index.js",
+    "database": "psql -U TulaHack -d entities -f ./database/auction.sql",
+    "database-dump": "pg_dump -U TulaHack --clean --if-exists entities -O -x > ./database/auction.sql"
   },
   "repository": {
     "type": "git",
