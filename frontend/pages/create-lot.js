@@ -186,7 +186,7 @@ export default class CreateLot extends Component {
     * @param {ShadowRoot} node корневой узел элемента
     * @return {PageMain} #this текущий компонент
     */
-  mount(node) {
+  async mount(node) {
     super.mount(node, attributes, properties);
 
     node.getElementById("upload-block-id").addEventListener("click", (e) => {
@@ -210,6 +210,9 @@ export default class CreateLot extends Component {
 
       imgId = r.id;
     });
+
+    const res = await api("auction.get");
+    console.log(res)
 
     node.getElementById("create").addEventListener("click", async () => {
       //send data

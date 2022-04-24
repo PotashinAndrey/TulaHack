@@ -13,7 +13,7 @@ export default class Images {
       console.log("UPLOAD", params);
       const db = new DB();
       const client = db.getClient();
-      client.query('INSERT INTO images (name) values ($1)', [params.id], (error, result) => {
+      client.query('INSERT INTO images (id) values ($1)', [params.id], (error, result) => {
           if (!error) {
             console.log(result?.rows);
           } else {

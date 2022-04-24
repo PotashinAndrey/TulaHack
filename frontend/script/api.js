@@ -36,7 +36,7 @@ export default async function api(method, data = {}, timeout = 5000) {
       }
     });
     console.log('HTTP response code:', r.status);
-    return await r.json();
+    return r.status === 204 ? [] : await r.json()
   } catch(e) {
     console.log('Huston, we have problem...:', e);
     return Promise.reject(e);
