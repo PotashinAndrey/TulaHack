@@ -82,10 +82,8 @@ header?.appendChild(newDiv);
 
 setTimeout(() => {
     const actions = document.getElementsByClassName("js-item-actions")[0];
-    // console.log(document.getElementsByClassName("js-item-actions"),actions)
 
     if (actions) {
-        // console.log(actions);
         const itemLine = document.createElement("div");
         itemLine.className = "item-actions-line";
 
@@ -107,4 +105,26 @@ setTimeout(() => {
         itemLine.appendChild(span);
         actions.appendChild(itemLine);
     }
+}, 1000);
+
+setTimeout(() => {
+    const mainBlock = document.getElementsByClassName("index-content-_KxNP")[0];
+
+    const ourAucs = document.createElement("div");
+    ourAucs.style.borderRadius = "16px";
+    ourAucs.style.background = "#c722b6";
+    ourAucs.style.height = "120px";
+    ourAucs.style.marginBottom = "10px";
+
+    const text = document.createElement("h1");
+    text.style.color = "white";
+    text.style.maxWidth = "300px";
+    text.style.fontSize = "30px";
+    text.innerText = "Попробуйте обратный аукцион!"
+
+    ourAucs.appendChild(text);
+
+    mainBlock.insertBefore(ourAucs, mainBlock.firstChild);
+
+    console.log(mainBlock);
 }, 1000);
