@@ -30,6 +30,7 @@
     "koa-mount": "^4.0.0",
     "koa-multer": "^1.0.2",
     "koa-static": "^5.0.0",
+    "node-fetch": "^3.2.3",
     "pg": "^8.7.3",
     "telegraf": "^4.7.0",
     "telegram-keyboard": "^2.3.0",
