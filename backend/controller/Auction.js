@@ -26,27 +26,34 @@ export default class Auction {
         image
       });
       setTimeout(() => {
-        const calculateWinner = async (adId) => {
-          console.log('Calculating winner', adId);
-          const bids = await db(
-            `SELECT * FROM bids WHERE ad = "${adId}"`
-          );
-          console.log(bids);
-          const winnerBid = bids[0];
-          console.log(winnerBid);
-          return db(
-            `UPDATE ads
-            SET winner_bid = ${winnerBid.id}
-            WHERE id = ${adId}`
-          );
-        };
-
-        calculateWinner(id);
+        Auction.winner({id});
       }, 5 * 1000);
       return {};
     } catch(error) {
       console.log(error);
     }
+  }
+
+  static async winner(params) {
+    const {id: adId} = params;
+
+    console.log('Calculating winner', adId);
+    const bids = await db(`SELECT * FROM bids WHERE ad = $1`, [adId]);
+    console.log(bids);
+
+    const filter = bids
+      .map(bid => bids.filter(b => bid.amount === b.amount).length === 1);
+
+    const filtered = bids
+      .filter((b, i) => filter[i])
+      .sort((a, b) => b.amount - a.amount); // мб сорт в другую сторону
+
+    const winnerBid = filtered[0];
+    console.log('winner', winnerBid, adId);
+    db(`UPDATE ads SET winner_bid = $1 WHERE id = $2`, [winnerBid.id, adId]);
+
+    // тут бы дернуть телегу
+    return {winner: winnerBid, ad: adId}
   }
 
   static setState(params) {

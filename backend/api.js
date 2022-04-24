@@ -11,7 +11,8 @@ const auction = {
   create: Auction.create,
   get: Auction.get,
   setState: Auction.setState,
-  getById: Auction.getById
+  getById: Auction.getById,
+  winner: Auction.winner
 };
 
 const lots = {
