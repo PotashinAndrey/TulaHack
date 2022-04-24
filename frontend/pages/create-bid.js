@@ -13,11 +13,11 @@ const attributes = {};
 const properties = {};
 
 const data = {
-  name: "Грязный носок",
-  description: "Мой старый грязный носок, побывал на всех континентах мира на моей ноге, отдам раритет в добрые ноги! Цена сдельная, запах отменный.",
+  name: "Башкрский мёд",
+  description: "Замечательный мёд, гордость Башкортостана, с домашней пасеки!",
   // img: "../../extension/logo.png",
-  src: "./imgs/sock.jpeg",
-  firstBet: 100,
+  src: "./storage/e04da91d-c4dd-4e8f-83db-98c381f7853f.jpeg",
+  firstBet: 1000,
   end: new Date(Date.now() + 100 * 1000)
 };
 

@@ -42,7 +42,7 @@ const openAuc = (link) => {
     const modal = document.createElement("div");
     Object.assign(modal.style, {
         width: "800px",
-        height: "700px",
+        height: "900px",
         backgroundColor: "white",
         borderRadius: "10px",
         margin: "auto",
