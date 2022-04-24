@@ -8,7 +8,7 @@ export default async function db(query, values) {
     const callback = (error, result) => {
       if (!error) {
         console.log(result?.rows);
-        resolve(result);
+        resolve(result?.rows);
       } else {
         console.log('error', error);
         reject(error);
