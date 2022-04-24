@@ -9,30 +9,38 @@ const ROOT = config.storage;
   */
 export default class Images {
   static upload(params) {
-    console.log("UPLOAD", params);
-    const db = new DB();
-    const client = db.getClient();
-    client.query('INSERT INTO images (name) values ($1)', [params.id], (error, result) => {
-        if (!error) {
-          console.log(result?.rows);
-        } else {
-          console.log('error', error);
-        }
-    });
-    return {};
+    try {
+      console.log("UPLOAD", params);
+      const db = new DB();
+      const client = db.getClient();
+      client.query('INSERT INTO images (name) values ($1)', [params.id], (error, result) => {
+          if (!error) {
+            console.log(result?.rows);
+          } else {
+            console.log('error', error);
+          }
+      });
+      return {};
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static async add(params) {
-    const { ad, image } = params; // ID объявления, ID картинки
-    const db = new DB();
-    const client = db.getClient();
-    client.query('INSERT INTO ad_images (ad, image) values ($1, $2)', [ad, image], (error, result) => {
-        if (!error) {
-          console.log(result?.rows);
-        } else {
-          console.log('error', error);
-        }
-    });
+    try {
+      const { ad, image } = params; // ID объявления, ID картинки
+      const db = new DB();
+      const client = db.getClient();
+      client.query('INSERT INTO ad_images (ad, image) values ($1, $2)', [ad, image], (error, result) => {
+          if (!error) {
+            console.log(result?.rows);
+          } else {
+            console.log('error', error);
+          }
+      });
+    } catch(error) {
+      console.log(error);
+    }
   }
 
   static async get(params) {
@@ -52,8 +60,5 @@ export default class Images {
           }
       });
     });
-    // сходить в БД, взять ID картинок по объявлению
-    // создать урлы картинок
-    // return
   }
 }

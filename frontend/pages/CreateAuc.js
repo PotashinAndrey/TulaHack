@@ -161,7 +161,7 @@ export default class CreateAuc extends Component {
         <div id="upload-container">
           <img id="upload-image" src="icons/upload.svg">
           <div>
-            <input id="fileInput" type="file" multiple>
+            <input id="fileInput" type="file" accept="image/png, image/jpeg, image/jpg">
             <label>Выберите файл</label>
             <span>или перетащите его сюда</span>
           </div>
