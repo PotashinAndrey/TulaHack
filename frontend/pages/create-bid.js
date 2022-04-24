@@ -125,10 +125,10 @@ const style = css`
     /* padding-bottom: 80px; */
   }`;
 
-/** Раскладка {Lot} @class @ui @component <lot-auc />
+/** Раскладка {CreateBid} @class @ui @component <create-bid />
  * description
  */
-export default class Lot extends Component {
+export default class CreateBid extends Component {
   static template = html`
     <template>
       <style>${style}</style>
@@ -192,7 +192,7 @@ export default class Lot extends Component {
   }
 }
 
-Component.init(Lot, 'lot-auc', {
+Component.init(CreateBid, 'create-bid', {
   attributes,
   properties
 });

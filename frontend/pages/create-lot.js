@@ -145,10 +145,10 @@ const style = css`
     /* padding-bottom: 80px; */
   }`;
 
-/** Раскладка {CreateAuc} @class @ui @component <create-auc />
+/** Раскладка {CreateLot} @class @ui @component <create-auc />
   * description
   */
-export default class CreateAuc extends Component {
+export default class CreateLot extends Component {
   static template = html`
     <template>
       <style>${style}</style>
@@ -309,4 +309,4 @@ export default class CreateAuc extends Component {
   }
 }
 
-Component.init(CreateAuc, 'create-auc', { attributes, properties });
+Component.init(CreateLot, 'create-lot', { attributes, properties });
