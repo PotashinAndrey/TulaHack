@@ -124,7 +124,7 @@ export default class CreateBid extends Component {
     console.log(window.location.search);
     // const id
     let params = new URLSearchParams(document.location.search);
-    let id = parseInt(params.get("id") || "", 10) || 1;
+    let id = params.get("id");
     console.log("LOAD AUCTION ID", id);
 
     node.getElementById("name").innerText = data.name;
